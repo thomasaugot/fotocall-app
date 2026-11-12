@@ -1,0 +1,35 @@
+name: Deploy
+
+# Called by CI once `checks` is green on main, or run by hand to redeploy.
+# Vercel's own Git auto-deploy to production is OFF (vercel.json → git.deploymentEnabled).
+on:
+  workflow_call:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  production:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: npm }
+      - run: npm i -g vercel@latest
+      # Pulls the project's production env (VITE_SUPABASE_URL / _PUBLISHABLE_KEY) from Vercel.
+      - run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      # VITE_SENTRY_DSN comes from the Vercel env pulled above. With SENTRY_AUTH_TOKEN the build makes
+      # hidden source maps, uploads them for this commit's release, and deletes them (13-MONITORING).
+      - run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          GIT_SHA: ${{ github.sha }}
+      - name: No source map in the deployed output
+        run: |
+          if find .vercel/output -name "*.map" | grep -q .; then echo "::error::.map files would be published"; exit 1; fi
+      - run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

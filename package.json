@@ -1,0 +1,74 @@
+{
+  "name": "fotocall-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:db": "vitest run --config vitest.db.config.ts",
+    "db:types": "supabase gen types typescript > src/types/database.ts",
+    "test:e2e": "playwright test --grep-invert @visual",
+    "test:visual": "playwright test --grep @visual",
+    "size": "size-limit",
+    "analyze": "vite build --mode analyze"
+  },
+  "engines": {
+    "node": ">=26"
+  },
+  "dependencies": {
+    "@fontsource-variable/cormorant": "^5.3.0",
+    "@fontsource-variable/figtree": "^5.3.0",
+    "@gsap/react": "^2.1.2",
+    "@sentry/react": "^11.12.0",
+    "@supabase/supabase-js": "^2.119.0",
+    "@tailwindcss/vite": "^4.3.5",
+    "@tanstack/react-query": "^5.107.1",
+    "gsap": "^3.15.1",
+    "lenis": "^1.3.27",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-hook-form": "^7.92.0",
+    "react-icons": "^5.7.0",
+    "react-router": "^8.5.1",
+    "tailwindcss": "^4.3.5",
+    "use-intl": "^4.15.1",
+    "zustand": "^5.1.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@babel/core": "^8.1.2",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.0",
+    "@rolldown/plugin-babel": "^0.3.1",
+    "@sentry/vite-plugin": "^11.12.0",
+    "@size-limit/file": "^14.3.0",
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.14.0",
+    "rollup-plugin-visualizer": "^7.1.3",
+    "size-limit": "^14.3.0",
+    "supabase": "^3.1.0",
+    "typescript": "~6.0",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^8.3.6",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.0"
+  },
+  "size-limit": [
+    {
+      "path": "dist/assets/index-*.js",
+      "limit": "200 KB"
+    }
+  ]
+}

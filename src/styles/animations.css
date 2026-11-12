@@ -1,0 +1,26 @@
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* PageLoading (14-PERFORMANCE): invisible for the first second, then the mark settles in and a
+   thin bar sweeps left to right. Reduced motion: it simply appears after the same second. */
+.page-loading-mark {
+  opacity: 0;
+  transform: scale(0.94);
+  animation: page-loading-in 700ms var(--ease-out) 1000ms forwards;
+}
+.page-loading-bar {
+  transform: translateX(-100%);
+  animation: page-loading-sweep 1400ms var(--ease-inout) 1000ms infinite;
+}
+@keyframes page-loading-in {
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes page-loading-sweep {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}

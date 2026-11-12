@@ -1,0 +1,49 @@
+{
+  "brand": "Mi fotocall",
+  "skipToContent": "Saltar al contenido",
+  "nav": {
+    "label": "Principal",
+    "home": "Hacer foto",
+    "gallery": "Galería"
+  },
+  "loader": {
+    "label": "Cargando",
+    "ready": "Página lista"
+  },
+  "modal": {
+    "close": "Cerrar"
+  },
+  "toast": {
+    "dismiss": "Cerrar aviso"
+  },
+  "footer": {
+    "privacy": "Solo quien tiene el enlace puede ver estas fotos."
+  },
+  "routeError": {
+    "meta": {
+      "title": "Algo no ha salido bien · Mi fotocall",
+      "description": "No hemos podido mostrar esta página."
+    },
+    "title": "Algo no ha salido bien",
+    "body": "No hemos podido mostrar esta página. Prueba de nuevo en un momento.",
+    "backHome": "Volver al inicio"
+  },
+  "notFound": {
+    "meta": {
+      "title": "Página no encontrada · Mi fotocall",
+      "description": "Esta página no existe."
+    },
+    "title": "Esta página no existe",
+    "body": "Puede que el enlace esté mal escrito.",
+    "backHome": "Volver al inicio"
+  },
+  "motion": {
+    "reduce": "Reducir animaciones"
+  },
+  "appError": {
+    "title": "Algo no ha salido bien",
+    "body": "La aplicación se ha detenido. Recarga la página para seguir.",
+    "reload": "Recargar",
+    "home": "Ir al inicio"
+  }
+}

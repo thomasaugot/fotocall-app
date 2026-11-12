@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "title": "Galería · Mi fotocall",
+    "description": "Todas las fotos que han compartido los invitados."
+  },
+  "title": "Galería",
+  "delete": {
+    "success": "Foto quitada del álbum",
+    "error": "No se ha podido quitar la foto. Inténtalo de nuevo."
+  }
+}

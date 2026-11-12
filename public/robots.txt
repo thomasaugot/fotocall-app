@@ -1,0 +1,3 @@
+# Private app: family photos reached only through the QR code. Nothing is indexed.
+User-agent: *
+Disallow: /

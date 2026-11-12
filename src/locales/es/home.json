@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "title": "Mi fotocall",
+    "description": "Haz o sube tus fotos del día y firma con tu nombre."
+  },
+  "title": "Mi fotocall",
+  "upload": {
+    "success": "Foto añadida al álbum",
+    "invalid": "Ese archivo no es una foto o pesa más de 40 MB",
+    "error": "No se ha podido subir la foto. Inténtalo de nuevo."
+  }
+}

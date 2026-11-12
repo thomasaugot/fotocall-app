@@ -1,0 +1,34 @@
+.keyboard-focus-ring:focus { outline: none; }
+.keyboard-focus-ring:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Fields show focus with their own edge, never a ring */
+.field-line:focus-within {
+  border-bottom-color: var(--color-primary);
+  box-shadow: 0 1px 0 0 var(--color-primary);
+}
+.field-line:focus-within > label { color: var(--color-primary); }
+.field-line .keyboard-focus-ring:focus-visible { outline: none; }
+
+html, * { -webkit-tap-highlight-color: transparent; }
+
+@media (pointer: coarse) {
+  button, [role="button"], a,
+  input[type="checkbox"], input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+html { scroll-padding-top: var(--navbar-height); }
+
+dialog, [data-scroll-panel] { overscroll-behavior: contain; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+}

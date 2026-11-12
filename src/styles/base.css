@@ -1,0 +1,41 @@
+/* Do NOT include box-sizing/margin/padding resets — Tailwind Preflight handles them */
+/* Do NOT set `scroll-behavior: smooth` on html — it fights Lenis. */
+
+html { background: var(--color-bg); color: var(--color-text); }
+::selection { background: var(--color-primary); color: var(--color-on-primary); }
+button, [role="button"], [type="button"], [type="submit"], [type="reset"] { cursor: pointer; }
+input, textarea, select { font-size: 1rem; } /* iOS zoom prevention */
+
+.z-drawer-backdrop { z-index: var(--z-drawer-backdrop); }
+.z-drawer          { z-index: var(--z-drawer); }
+.z-dropdown        { z-index: var(--z-dropdown); }
+.z-modal           { z-index: var(--z-modal); }
+.z-picker          { z-index: var(--z-picker); }
+.z-overlay         { z-index: var(--z-overlay); }
+.z-toast           { z-index: var(--z-toast); }
+.z-nav             { z-index: var(--z-nav); }
+.z-loader          { z-index: var(--z-loader); }
+.z-skip            { z-index: var(--z-skip); }
+
+/* Navbar hide/reveal fallback — the effect sets these in JS on mount (build-navbar) */
+header[role="banner"] {
+  will-change: transform;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+dialog::backdrop { background: color-mix(in srgb, var(--color-text) 55%, transparent); }
+
+@utility bg-brand-gradient {
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+}
+
+/* Display, title and heading use the serif; everything else stays on --font-sans. */
+.text-display    { font-family: var(--font-display); font-size: var(--text-display); font-weight: var(--font-weight-black);   line-height: var(--leading-tight);  letter-spacing: var(--tracking-tight); }
+.text-title      { font-family: var(--font-display); font-size: var(--text-4xl);     font-weight: var(--font-weight-bold);    line-height: var(--leading-tight); }
+.text-heading    { font-family: var(--font-display); font-size: var(--text-2xl);     font-weight: var(--font-weight-bold);    line-height: var(--leading-snug); }
+.text-subheading { font-size: var(--text-xl);      font-weight: var(--font-weight-semibold);line-height: var(--leading-snug); }
+.text-body       { font-size: var(--text-base);    font-weight: var(--font-weight-regular); line-height: var(--leading-normal); color: var(--color-text); }
+.text-body-sm    { font-size: var(--text-sm);      font-weight: var(--font-weight-regular); line-height: var(--leading-normal); color: var(--color-text-muted); }
+.text-button     { font-size: var(--text-base);    font-weight: var(--font-weight-semibold);line-height: 1; }
+.text-wordmark   { font-family: var(--font-display); font-size: var(--text-xl); font-weight: var(--font-weight-semibold); line-height: 1; }
+.text-label      { font-size: var(--text-sm);      font-weight: var(--font-weight-semibold);letter-spacing: var(--tracking-widest); text-transform: uppercase; }
