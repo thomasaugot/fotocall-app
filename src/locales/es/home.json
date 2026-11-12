@@ -3,10 +3,55 @@
     "title": "Mi fotocall",
     "description": "Haz o sube tus fotos del día y firma con tu nombre."
   },
-  "title": "Mi fotocall",
+  "title": "Un recuerdo <em>para siempre</em>",
   "upload": {
     "success": "Foto añadida al álbum",
     "invalid": "Ese archivo no es una foto o pesa más de 40 MB",
     "error": "No se ha podido subir la foto. Inténtalo de nuevo."
-  }
+  },
+  "intro": {
+    "lead": "Escribe tu nombre: firmará cada foto que hagas hoy.",
+    "nameLabel": "Tu nombre",
+    "nameHint": "Saldrá escrito en cada foto que hagas.",
+    "nameError": "Escribe tu nombre para firmar tus fotos",
+    "save": "Firmar",
+    "signedAs": "Firmas como",
+    "change": "Cambiar el nombre",
+    "ready": "Haz una foto o sube las que ya tienes en el móvil."
+  },
+  "camera": {
+    "label": "Cámara",
+    "open": "Abrir la cámara",
+    "needName": "Primero escribe tu nombre",
+    "shutter": "Hacer foto",
+    "switch": "Cambiar de cámara",
+    "library": "Subir del móvil",
+    "libraryLabel": "Elegir fotos del móvil",
+    "previewAlt": "Tu foto, antes de añadirla al álbum",
+    "retake": "Repetir",
+    "keep": "Añadir al álbum",
+    "denied": "No podemos usar la cámara. Revisa el permiso en el navegador, o sube una foto del móvil.",
+    "unsupported": "Este navegador no abre la cámara aquí. Sube una foto del móvil.",
+    "retry": "Reintentar",
+    "captureError": "No se ha podido hacer la foto. Inténtalo otra vez.",
+    "added": "{count, plural, one {# foto tuya en el álbum} other {# fotos tuyas en el álbum}}",
+    "seeGallery": "Ver la galería"
+  },
+  "peek": {
+    "title": "Lo último del álbum",
+    "by": "La última, de {name}",
+    "open": "Abrir la galería"
+  },
+  "occasion": "Primera Comunión de Lucas",
+  "mine": {
+    "title": "Tus fotos",
+    "count": "{count, plural, one {# foto en el álbum} other {# fotos en el álbum}}",
+    "alt": "Una foto tuya del álbum",
+    "delete": "Eliminar esta foto",
+    "confirmTitle": "¿Eliminar esta foto?",
+    "confirmBody": "Dejará de verla todo el mundo en la galería.",
+    "confirmYes": "Eliminar foto",
+    "confirmNo": "Cancelar"
+  },
+  "date": "16 de mayo de 2027"
 }

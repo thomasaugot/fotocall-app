@@ -15,7 +15,7 @@ const page = <K extends string>(load: () => Promise<Record<K, ComponentType>>, n
 export const router = createBrowserRouter([
   {
     element: <RootLayout />,
-    // Direct load: the ivory ground holds until the messages and the chunk land, then PageLoader.
+    // Direct load: the white ground holds until the messages and the chunk land, then PageLoader.
     hydrateFallbackElement: <div className="min-h-svh bg-bg" />,
     children: locales.map((locale) => ({
       id: `locale-${locale}`,
@@ -31,6 +31,11 @@ export const router = createBrowserRouter([
               path: routeTranslations.gallery[locale],
               handle: { routeKey: "gallery" },
               lazy: page(routeModules.gallery, "GalleryPage"),
+            },
+            {
+              path: routeTranslations.admin[locale],
+              handle: { routeKey: "admin" },
+              lazy: page(routeModules.admin, "AdminPage"),
             },
             { path: "*", lazy: page(routeModules.notFound, "NotFoundPage") },
           ],

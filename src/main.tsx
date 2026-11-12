@@ -1,5 +1,6 @@
 import "@fontsource-variable/figtree"
 import "@fontsource-variable/cormorant"
+import "@fontsource-variable/cormorant/wght-italic.css"
 import "@/globals.css"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"

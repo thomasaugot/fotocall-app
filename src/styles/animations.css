@@ -24,3 +24,7 @@
   from { transform: translateX(-100%); }
   to   { transform: translateX(100%); }
 }
+
+/* The gloria (rays behind the arch) turns almost imperceptibly: one turn in four minutes. */
+.gloria-turn { animation: gloria-turn 240s linear infinite; transform-origin: 50% 50%; }
+@keyframes gloria-turn { to { transform: rotate(360deg); } }

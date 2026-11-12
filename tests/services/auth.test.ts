@@ -20,6 +20,16 @@ describe("ensureGuestSession", () => {
     await expect(ensureGuestSession()).resolves.toBe("u2")
   })
 
+  it("asks the browser to keep the storage once signed in", async () => {
+    const persist = vi.fn(() => Promise.resolve(true))
+    vi.stubGlobal("navigator", { storage: { persist } })
+    auth.getSession.mockResolvedValue({ data: { session: null }, error: null })
+    auth.signInAnonymously.mockResolvedValue({ data: { user: { id: "u3" } }, error: null })
+    await ensureGuestSession()
+    expect(persist).toHaveBeenCalledTimes(1)
+    vi.unstubAllGlobals()
+  })
+
   it("throws instead of returning a fallback", async () => {
     auth.getSession.mockResolvedValue({ data: { session: null }, error: null })
     auth.signInAnonymously.mockResolvedValue({ data: { user: null }, error: new Error("rate limited") })

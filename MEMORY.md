@@ -55,6 +55,8 @@ Values live in `src/styles/theme.css` — never copy hex or sizes here, they dri
 
 ## Session Log
 - 2026-11-12 — Bootstrapped project (01-BOOTSTRAP steps 0–7)
+- 2026-11-12 — Home photocall: name (remembered on the phone), live camera (front/back), 3:4 capture, preview, library uploads, album peek
+- 2026-11-12 — PWA (vite-plugin-pwa): manifest, icons, update prompt, offline banner, install button
 - 2026-11-12 — 15-CHECKLIST audit over all files: clean (structure, flicker audit, primitives, navigation, focus rings, env, tsc, lint)
 - 2026-11-12 — 14-PERFORMANCE: photos query live (30 s, paused when hidden), gallery data prefetched on hover, PageLoading + entrance replay, `npm run analyze`
 - 2026-11-12 — 13-MONITORING: Sentry (lazy SDK, boundaries report, chunk reload), uptime and backup workflows
@@ -103,7 +105,48 @@ Values live in `src/styles/theme.css` — never copy hex or sizes here, they dri
 - 2026-11-12 — Uptime: `.github/workflows/uptime.yml` every 10 min: title "Mi fotocall", its
   `/assets/index-*.js` loads, Supabase `/auth/v1/health` answers.
 
+- 2026-11-12 — PWA offline scope: APP SHELL. The worker precaches the built app (HTML, JS, CSS,
+  fonts, icons); photos (private signed URLs) and Supabase answers are never cached. Offline =
+  the app opens, "Sin conexión" banner, gallery waits for the network. Update offered
+  (registerType prompt, hourly check), never forced. `navigator.storage.persist()` after the
+  anonymous sign-in. Icons from `public/assets/icons/source.svg` (`npx pwa-assets-generator`,
+  then the maskable file renamed `maskable-512x512.png`, favicon moved to `public/`).
+
+- 2026-11-12 — Captures are 3:4 portrait and mirrored for the selfie camera (what the guest saw);
+  logic from the DosxDos convention app (`useCameraStream`, cover crop), without its filters and
+  MediaPipe segmentation. The guest name lives in localStorage (`guest-name`).
+
+- 2026-11-12 — Admin area `/admin` (URL only, not in the navbar): the admin is a REAL Supabase user
+  (email + password), email in the public `VITE_ADMIN_EMAIL`, the login asks for the password only.
+  Role = `app_metadata.role = 'admin'` (only the service role writes it); `public.is_admin()` in
+  `supabase/migrations/20261112180000_admin.sql` lets admins delete any photo row and any file in
+  the bucket; guests unchanged. Created by hand: `npm run admin:create` (env SUPABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY, ADMIN_EMAIL, ADMIN_PASSWORD; refuses non-local URLs without
+  `--allow-cloud`). Dashboard: photos grid (select, delete with confirmation, download one, ZIP of
+  all via `fflate`), QR (`qrcode`, colours from the `--color-text` / `--color-surface` tokens read at
+  runtime, PNG 2048 px, SVG, print card), sign-out (cache cleared + full reload). `fflate` and
+  `qrcode` are dynamic imports reached only from the lazy admin chunk. Tested on the LOCAL stack in
+  `tests/supabase/admin.test.ts` (proven red when `is_admin()` is loosened, restored).
+- 2026-11-12 — OPEN DECISION, auth: the plan said `enable_signup = false`, but on the local stack
+  GoTrue then answers 422 `signup_disabled` to ANONYMOUS sign-ins too (guests would be locked out).
+  So `enable_signup` stays true with the email provider ON: anyone can create an email account,
+  which is a non-admin session worth no more than a guest's. Options for Thomas: (a) accept it,
+  (b) a `before insert` trigger on `auth.users` that refuses non-anonymous users without
+  `raw_app_meta_data.role = 'admin'`. The email sign-up refusal test is an `it.todo` until decided.
+
+- 2026-11-12 — Dev = LOCAL Supabase: `.env.development.local` (gitignored) points `npm run dev` at
+  the Docker stack, where `npm run seed:photos` puts 36 TEST photos. Cloud is only used by the
+  deployed build. Delete that file to run dev against Cloud.
+- 2026-11-12 — Look (after 5 rejections, see design-log): warm-white paper, midnight navy, fine gold
+  ornaments; logo = chalice + Host; camera in an arched window; generous spacing; light only.
+
 ## Deviations from spec
+- No visible "Reducir animaciones" toggle (05 layer 2): removed at Thomas's request 2026-11-12.
+  The system `prefers-reduced-motion` setting is still honoured everywhere.
+- Button gained variant `bare` and size `xl` (the camera shutter); Input accepts `ref` (react-hook-form).
+- PWA: no unit test of UpdatePrompt (no DOM test setup: components are not unit-tested here);
+  the install decision lives in `utils/install-prompt.ts` (tested). PWA E2E (`e2e/pwa.spec.ts`)
+  runs only in CI's `pwa` job on a production build (never built locally).
 - E2E tall-home trick keys on the rendered `<main> h1`, not the URL: keyed on the URL it shrank
   the page before React swapped it and WebKit saved a clamped scroll (flaky back-restore, fixed).
 - Deploy needs `checks` only (Thomas's global rule), so the `backend` (RLS) job reports
@@ -148,7 +191,18 @@ Values live in `src/styles/theme.css` — never copy hex or sizes here, they dri
   base.css, on top of the 03 template — the serif is only for those three.
 - `--color-border-strong` and `--font-display` added to the 03 token set.
 
+- Admin: `AdminMeta` (in `pages/admin/`) renders title/description instead of `PageMeta`, because
+  `PageMeta`'s namespace union lives in `components/layout/` (off limits during the redesign):
+  fold it into `PageMeta` once the layout is free. `Checkbox` primitive built (07).
+- E2E for `/admin` mocks the auth endpoints with a guest session (so it shows the login); the
+  dashboard has its own spec `e2e/admin.spec.ts` with a stored admin session.
+
 ## Known issues / TODO
+- PLACEHOLDERS on the home page: `home.json` → `occasion` ("Primera Comunión de Lucas") and `date` ("16 de mayo de 2027"). Replace with the real child's name and date from Thomas.
+- Cloud: push the admin migration, set auth config (email provider on, signup off if decided),
+  create the admin with `npm run admin:create -- --allow-cloud`, set VITE_ADMIN_EMAIL in Vercel:
+  needs Thomas's OK (nothing done on Cloud).
+- Seed/clean the gallery with stock photos: `npm run seed:photos` / `npm run seed:clean` (env `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` from `npx supabase status -o env`). Local stack only; Cloud needs Thomas's explicit OK and `--allow-cloud`.
 - 10-SEO applied as a PRIVATE app: `noindex, nofollow` in index.html, static
   `public/robots.txt` (Disallow: /), no sitemap, no JSON-LD, no prerendered heads, no tsx script.
   Still to apply when the features land: Media rules for the photo grid (width/height on every
@@ -190,5 +244,5 @@ Values live in `src/styles/theme.css` — never copy hex or sizes here, they dri
   localhost:3000 on Cloud: set it to the Vercel URL once known (no emails/redirects use it today).
 - Structure check warns on `tests/csp.test.ts` and `tests/supabase/rls.test.ts` (no `src/`
   twin): expected, they cover vercel.json/index.html and supabase/migrations.
-- No favicon yet: the brand mark exists (`ui/BrandMark.tsx`); icons are generated with the PWA setup.
+- PWA still to check on real phones after the first deploy: install on Android Chrome + iOS Safari, update prompt on a new deploy, maskable icon on maskable.app.
 - Production URL to confirm once the Vercel project exists.

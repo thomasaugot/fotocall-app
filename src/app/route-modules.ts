@@ -3,6 +3,7 @@ import { photosQuery } from "@/services/photo-queries"
 
 export const routeModules = {
   gallery: () => import("@/components/pages/gallery/GalleryPage"),
+  admin: () => import("@/components/pages/admin/AdminPage"),
   notFound: () => import("@/components/pages/not-found/NotFoundPage"),
 } as const
 

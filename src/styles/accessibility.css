@@ -5,10 +5,13 @@
   border-radius: var(--radius-sm);
 }
 
+/* On the ink camera stage (the print's frame, the live viewfinder) the ring turns white. */
+[data-ground="ink"] .keyboard-focus-ring:focus-visible { outline-color: var(--color-on-ink); }
+
 /* Fields show focus with their own edge, never a ring */
 .field-line:focus-within {
   border-bottom-color: var(--color-primary);
-  box-shadow: 0 1px 0 0 var(--color-primary);
+  box-shadow: 0 2px 0 0 var(--color-primary);
 }
 .field-line:focus-within > label { color: var(--color-primary); }
 .field-line .keyboard-focus-ring:focus-visible { outline: none; }

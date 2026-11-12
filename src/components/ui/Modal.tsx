@@ -52,9 +52,9 @@ export const Modal = ({ isOpen, onClose, title, children, size = "md" }: ModalPr
       onClick={handleBackdrop}
       className={`m-auto max-h-[calc(100dvh-2rem)] bg-surface p-0 text-text shadow-lg ${SIZE[size]}`}
     >
-      <div className="flex items-center justify-between gap-4 px-6 pt-5 pb-3">
+      <div className="flex items-center justify-between gap-4 pt-4 pr-4 pb-2 pl-6">
         <h2 id={titleId} className="text-heading">{title}</h2>
-        <Button variant="outlined" size="sm" aria-label={t("close")} icon={<IconClose className="h-4 w-4" />} onClick={onClose} />
+        <Button variant="bare" size="md" aria-label={t("close")} icon={<IconClose className="h-5 w-5" />} onClick={onClose} />
       </div>
       <div data-lenis-prevent className="overflow-y-auto px-6 pb-6">
         {children}

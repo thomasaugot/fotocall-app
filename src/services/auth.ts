@@ -9,5 +9,7 @@ export const ensureGuestSession = async (): Promise<string> => {
 
   const signIn = await supabase.auth.signInAnonymously()
   if (signIn.error || !signIn.data.user) throw signIn.error ?? new Error("Anonymous sign-in returned no user")
+  // Keep the session (= ownership of their photos) through storage pressure and Safari's 7-day eviction.
+  void navigator.storage?.persist?.().catch(() => false)
   return signIn.data.user.id
 }

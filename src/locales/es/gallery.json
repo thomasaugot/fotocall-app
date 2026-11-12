@@ -4,8 +4,36 @@
     "description": "Todas las fotos que han compartido los invitados."
   },
   "title": "Galería",
+  "count": "{photos, plural, one {# foto} other {# fotos}} de {guests, plural, one {# invitado} other {# invitados}}",
+  "album": {
+    "label": "Fotos del álbum",
+    "more": "Ver más fotos"
+  },
+  "photo": {
+    "open": "Ver la foto de {name}",
+    "alt": "Foto de {name}"
+  },
+  "empty": {
+    "title": "El álbum está por estrenar",
+    "body": "Haz la primera foto del día y aparecerá aquí, firmada con tu nombre.",
+    "cta": "Hacer la primera foto",
+    "sign": "Tu nombre aquí"
+  },
+  "viewer": {
+    "title": "Foto de {name}",
+    "prev": "Foto anterior",
+    "next": "Foto siguiente",
+    "download": "Descargar",
+    "delete": "Eliminar",
+    "confirm": {
+      "question": "¿Eliminar esta foto del álbum?",
+      "hint": "Dejará de verla todo el mundo.",
+      "yes": "Eliminar foto",
+      "no": "Cancelar"
+    }
+  },
   "delete": {
-    "success": "Foto quitada del álbum",
-    "error": "No se ha podido quitar la foto. Inténtalo de nuevo."
+    "success": "Foto eliminada del álbum",
+    "error": "No se ha podido eliminar la foto. Inténtalo de nuevo."
   }
 }

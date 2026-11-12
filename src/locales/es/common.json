@@ -3,7 +3,7 @@
   "skipToContent": "Saltar al contenido",
   "nav": {
     "label": "Principal",
-    "home": "Hacer foto",
+    "home": "Cámara",
     "gallery": "Galería"
   },
   "loader": {
@@ -26,7 +26,8 @@
     },
     "title": "Algo no ha salido bien",
     "body": "No hemos podido mostrar esta página. Prueba de nuevo en un momento.",
-    "backHome": "Volver al inicio"
+    "backHome": "Volver al inicio",
+    "mark": "¡Vaya!"
   },
   "notFound": {
     "meta": {
@@ -34,16 +35,31 @@
       "description": "Esta página no existe."
     },
     "title": "Esta página no existe",
-    "body": "Puede que el enlace esté mal escrito.",
-    "backHome": "Volver al inicio"
-  },
-  "motion": {
-    "reduce": "Reducir animaciones"
+    "body": "Esta foto no ha salido. Puede que el enlace esté mal escrito.",
+    "backHome": "Volver al inicio",
+    "mark": "404"
   },
   "appError": {
     "title": "Algo no ha salido bien",
     "body": "La aplicación se ha detenido. Recarga la página para seguir.",
     "reload": "Recargar",
-    "home": "Ir al inicio"
+    "home": "Ir al inicio",
+    "mark": "¡Vaya!"
+  },
+  "pwa": {
+    "updateAvailable": "Nueva versión disponible",
+    "update": "Actualizar",
+    "offline": "Sin conexión. Las fotos se verán al volver la red.",
+    "install": "Instalar",
+    "iosHint": "Añádela a tu pantalla de inicio en tres toques.",
+    "installTitle": "Instala Mi fotocall",
+    "installBody": "Tenla a mano en tu pantalla de inicio, como una app.",
+    "installDismiss": "Ahora no",
+    "how": "Ver cómo",
+    "howTitle": "Instalar en tu iPhone",
+    "step1": "Pulsa el botón Compartir, abajo en Safari.",
+    "step2": "Baja y elige «Añadir a pantalla de inicio».",
+    "step3": "Pulsa «Añadir». Ya tienes Mi fotocall como una app.",
+    "understood": "Entendido"
   }
 }

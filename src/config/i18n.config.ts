@@ -6,5 +6,6 @@ export const defaultLocale: Locale = "es"
 export const routeTranslations = {
   home: { es: "" },
   gallery: { es: "galeria" },
+  admin: { es: "admin" },
 } as const satisfies Record<string, Record<Locale, string>>
 export type RouteKey = keyof typeof routeTranslations

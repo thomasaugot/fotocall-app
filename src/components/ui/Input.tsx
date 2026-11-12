@@ -1,9 +1,10 @@
-import { useId, type InputHTMLAttributes } from "react"
+import { useId, type InputHTMLAttributes, type Ref } from "react"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   error?: string
   hint?: string
+  ref?: Ref<HTMLInputElement>
 }
 
 // Focus is the field's own edge (border turns primary and thickens, label follows), never a ring.
@@ -14,7 +15,7 @@ export const Input = ({ label, error, hint, id, className, ...rest }: InputProps
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="field-line flex flex-col gap-1 border-b border-border-strong transition-[border-color,box-shadow] duration-150">
+      <div className="field-line flex flex-col gap-1 border-b-2 border-border-strong transition-[border-color,box-shadow] duration-150">
         <label htmlFor={inputId} className="text-body-sm transition-colors duration-150">{label}</label>
         <input
           {...rest}

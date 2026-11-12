@@ -1,4 +1,6 @@
 import { useEffect, useEffectEvent, useLayoutEffect, useRef, useState } from "react"
+import { BrandMark } from "@/components/ui/BrandMark"
+import { Gloria } from "@/components/ui/Gloria"
 import { useAppReady, useMarkLoaderGone } from "@/hooks/useAppReady"
 import { useMotionPreference } from "@/hooks/useMotionPreference"
 import { announce } from "@/utils/announce"
@@ -7,6 +9,7 @@ import { useTranslations } from "use-intl"
 
 const MIN_DURATION = 1800
 
+// The camera settles, its gold lens lights up, faint rays behind; a gold bar fills under the name.
 export function PageLoader() {
   const t = useTranslations()
   const appReady = useAppReady()
@@ -58,23 +61,19 @@ export function PageLoader() {
       ref={rootRef}
       role="status"
       aria-label={t("loader.label")}
-      className="z-loader fixed inset-0 flex items-center justify-center bg-bg px-6"
+      className="z-loader fixed inset-0 flex flex-col items-center justify-center gap-8 overflow-hidden bg-bg px-8 pb-[8svh]"
     >
-      <div className="flex items-center gap-5">
-        <svg data-anim="loader-mark" aria-hidden="true" viewBox="0 0 100 100" className="invisible h-20 w-20 shrink-0 -rotate-90 text-primary">
-          <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" strokeOpacity={0.18} strokeWidth={1.5} />
-          <circle
-            data-ring
-            cx="50" cy="50" r="46" fill="none" stroke="currentColor" strokeWidth={1.5}
-            pathLength={1} strokeDasharray={1} strokeDashoffset={1}
-          />
-        </svg>
-        <div className="flex flex-col gap-3">
-          <p data-anim="loader-word" className="invisible text-title text-text">{t("brand")}</p>
-          <div data-anim="loader-track" aria-hidden="true" className="invisible relative h-px w-full overflow-hidden bg-border">
-            <div data-anim="loader-line" className="absolute inset-0 origin-left bg-primary [transform:scaleX(0)]" />
-          </div>
+      <div className="relative flex items-center justify-center">
+        <div data-anim="loader-gloria" className="invisible absolute">
+          <Gloria className="h-[34rem] w-[34rem]" />
         </div>
+        <div data-anim="loader-mark" className="invisible relative">
+          <BrandMark className="h-28 w-28" />
+        </div>
+      </div>
+      <p data-anim="loader-word" className="invisible relative text-hero"><em>{t("brand")}</em></p>
+      <div data-anim="loader-track" aria-hidden="true" className="invisible relative h-0.5 w-28 overflow-hidden rounded-full bg-border">
+        <div data-anim="loader-line" className="absolute inset-0 origin-left rounded-full bg-gold [transform:scaleX(0)]" />
       </div>
     </div>
   )

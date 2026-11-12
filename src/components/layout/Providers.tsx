@@ -2,7 +2,10 @@ import type { ReactNode } from "react"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { queryClient } from "@/lib/query-client"
 import { PageLoader } from "@/components/layout/PageLoader"
+import { InstallBar } from "@/components/ui/InstallBar"
 import { LiveRegion } from "@/components/ui/LiveRegion"
+import { OfflineBanner } from "@/components/ui/OfflineBanner"
+import { UpdatePrompt } from "@/components/ui/UpdatePrompt"
 import { Toaster } from "@/components/ui/Toaster"
 import { AppReadyProvider } from "@/contexts/AppReadyContext"
 import { ScrollProvider } from "@/contexts/ScrollContext"
@@ -19,6 +22,9 @@ export const Providers = ({ children }: { children: ReactNode }) => {
               <PageLoader />
               {children}
               <Toaster />
+              <UpdatePrompt />
+              <OfflineBanner />
+              <InstallBar />
               <LiveRegion />
             </MotionPreferenceProvider>
           </TransitionProvider>

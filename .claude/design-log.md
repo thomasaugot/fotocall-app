@@ -211,3 +211,52 @@
   surface-2 pill; frosted surface only after 60px; hides on scroll down.
 - Known risk: design-frontend flags cream + gold + serif as a default AI cluster. Chosen anyway
   because white and gold ARE the liturgical colours of a communion; awaiting Thomas's verdict.
+
+## 2026-11-12 — Mi fotocall: home (photocall)
+- Built without a mock-up review (Thomas: "dont show it to me build it").
+- Split on desktop: intro left (serif title, lead, name as a field-line form → "Firmas como" +
+  name in serif), 3:4 viewfinder right with a soft shadow. Under the intro, "Lo último del álbum":
+  the 3 newest photos as tilted overlapping prints (ivory print border), linking to the gallery.
+  Phone: stacked, camera scrolls into view when opened.
+- Signature: the brand ring IS the shutter (gilt ring around a solid gold disc). Library upload
+  left, camera switch right. Shot → preview with Repetir / Añadir al álbum; ivory flash on capture.
+- Camera never asked on load: a tap on "Abrir la cámara" inside the viewfinder placeholder.
+
+## 2026-11-12 — Mi fotocall: whole look REJECTED
+- Thomas, on chrome + home: "a disaster", "the logo is a shit, be a bit more creative", "the whole
+  stuff looks very boring", "everything is brownish", "not very impressive". KEEPS: the font
+  (Cormorant display + Figtree).
+- Rejected therefore: ivory + antique gold + sepia palette (the cream/gold/serif AI default I had
+  flagged as a risk), the thin ring logo, quiet low-contrast chrome. Next version must differ on
+  palette, logo, composition and energy, not be a re-tune.
+
+## 2026-11-12 — Mi fotocall: redesign, first palette REJECTED
+- Thomas, on seeing the tokens in his dev server: "what the fucking fuck is this choice of
+  colours". Rejected: blush pink ground + ultramarine + mandarin + sun yellow + rose. It reads
+  as a candy clash. Never again here: a pink ground, or four saturated hues at once.
+- Colour work stopped; the new palette is set by Thomas with the main conversation. Layout,
+  logo shape and motion carry on with the semantic tokens only.
+
+## 2026-11-12 — Mi fotocall: 2nd palette REJECTED, 3rd decided
+- Blush pink ground + ultramarine + mandarin + sun + rose: "what the fucking fuck is this choice
+  of colours". Candy clash, too many hues.
+- Decided (Thomas refuses to pick: "you are the designer"): white ground, zinc neutrals, ink
+  #18181B, ONE coral accent for what you press, a soft sky fill, a solid ink panel behind the camera.
+  The photos carry the colour.
+
+## 2026-11-12 — Mi fotocall: 3 more rejections, then the communion direction
+- Coral/white "Mf" prints (agent): "the logo is horrible as shit, the colors horrible, nothing was
+  even designed". Black + flash yellow (mine): "this black app with horrible yellow, a joke".
+  Celeste sky + royal blue + big gold rays: "too far in the celeste shit, too childish, not smooth
+  and pro", "everything is very cramped and stuck together". "its a fucking communion".
+- CURRENT: warm-white paper, midnight navy ink and buttons, fine gold only in ornaments. Logo = a
+  church window in one fine line with the Host as a gold dot. The camera lives in an arched
+  window (white mat), faint hairline rays behind, two small olive branches at its foot; album peek
+  as three arched prints; gallery = album leaves with gold photo corners. Generous spacing.
+- Never again here: pink, bright blue, yellow, black ground, celeste washes, thick rays, tight gaps.
+- Arch REJECTED everywhere: logo ("looks like a grave"), album peek prints, then the camera frame
+  itself ("the photocall is in shape of a grave"). Chalice logo and "M." monogram rejected too
+  ("jesus related shit? its a photocall app", "who is M.?"). KEPT ("now its perfect"): the navy /
+  warm white / fine gold palette, the hairline rays, the olive branches, the spacing.
+- CURRENT: camera frame = large rounded photo print (white mat, signature margin); logo = small
+  navy camera with a gold lens; peek = three big rectangular prints. No arch anywhere.

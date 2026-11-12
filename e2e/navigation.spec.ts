@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     const sync = () => {
       const title = document.querySelector("main h1")?.textContent ?? ""
-      document.documentElement.toggleAttribute("data-e2e-home", title === "Mi fotocall")
+      document.documentElement.toggleAttribute("data-e2e-home", title === "Un recuerdo para siempre")
     }
     document.addEventListener("DOMContentLoaded", () => {
       const style = document.createElement("style")

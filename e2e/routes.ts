@@ -2,8 +2,9 @@ import type { Page } from "@playwright/test"
 
 // The ONE list of routes every E2E suite walks. A new route is added here.
 export const ROUTES = [
-  { name: "home", path: "/", h1: "Mi fotocall" },
+  { name: "home", path: "/", h1: "Un recuerdo para siempre" },
   { name: "gallery", path: "/galeria", h1: "Galería" },
+  { name: "admin", path: "/admin", h1: "Administración" },
   { name: "not-found", path: "/esta-pagina-no-existe", h1: "Esta página no existe" },
 ] as const
 

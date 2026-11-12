@@ -64,6 +64,21 @@ jobs:
         if: failure()
         with: { name: playwright-report, path: playwright-report, retention-days: 14 }
 
+  # The service worker only exists in a production build: built + previewed here. Reports only.
+  pwa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npx vite build --mode test
+      - run: npx vite preview --mode test --port 4174 --strictPort &
+      - run: npx wait-on http://localhost:4174/ --timeout 60000
+      - run: npx playwright test e2e/pwa.spec.ts --project=desktop
+        env: { PWA_URL: "http://localhost:4174" }
+
   lighthouse:
     runs-on: ubuntu-latest
     continue-on-error: true

@@ -39,6 +39,15 @@
           "value": "default-src 'self'; script-src 'self' 'sha256-R4jivz+McvUg4zOfDHXlmkADEhyDQaVLvUlF0Vm4vCU='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://jzhysqrbcnmekikbhyou.supabase.co; font-src 'self'; connect-src 'self' https://jzhysqrbcnmekikbhyou.supabase.co wss://jzhysqrbcnmekikbhyou.supabase.co https://o4512402963103744.ingest.de.sentry.io; manifest-src 'self'; worker-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
         }
       ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
     }
   ]
 }

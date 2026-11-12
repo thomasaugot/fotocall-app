@@ -3,4 +3,5 @@ export type Messages =
   typeof import("@/locales/es/common.json") & {
     home: typeof import("@/locales/es/home.json")
     gallery: typeof import("@/locales/es/gallery.json")
+    admin: typeof import("@/locales/es/admin.json")
   }

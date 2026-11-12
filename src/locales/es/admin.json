@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Administración · Mi fotocall",
+    "description": "Gestión del álbum."
+  },
+  "login": {
+    "title": "Administración",
+    "body": "Escribe la contraseña para gestionar el álbum.",
+    "passwordLabel": "Contraseña",
+    "show": "Mostrar contraseña",
+    "hide": "Ocultar contraseña",
+    "submit": "Entrar",
+    "error": "No hemos podido entrar. Revisa la contraseña e inténtalo de nuevo."
+  },
+  "dashboard": {
+    "title": "Administración",
+    "signOut": "Cerrar sesión"
+  },
+  "stats": {
+    "label": "Resumen del álbum",
+    "photos": "{count, plural, one {foto} other {fotos}}",
+    "guests": "{count, plural, one {invitado} other {invitados}}"
+  },
+  "photos": {
+    "title": "Fotos",
+    "empty": "Todavía no hay fotos en el álbum.",
+    "selectAll": "Seleccionar todas",
+    "selectedCount": "{count, plural, one {# foto seleccionada} other {# fotos seleccionadas}}",
+    "deleteSelected": "Eliminar selección",
+    "downloadAll": "Descargar todas",
+    "list": "Fotos del álbum",
+    "photoOf": "Foto de {name}",
+    "select": "Seleccionar la foto de {name}",
+    "download": "Descargar la foto de {name}"
+  },
+  "delete": {
+    "title": "Eliminar fotos",
+    "body": "{count, plural, one {Se eliminará 1 foto del álbum para siempre.} other {Se eliminarán # fotos del álbum para siempre.}}",
+    "confirm": "Eliminar",
+    "cancel": "Cancelar",
+    "success": "{count, plural, one {Foto eliminada} other {# fotos eliminadas}}",
+    "error": "No se han podido eliminar las fotos. Inténtalo de nuevo."
+  },
+  "download": {
+    "oneSuccess": "Foto descargada",
+    "allSuccess": "{count, plural, one {Foto descargada} other {# fotos descargadas en un ZIP}}",
+    "error": "No se ha podido descargar. Inténtalo de nuevo.",
+    "preparing": "Preparando…"
+  },
+  "qr": {
+    "title": "Código QR",
+    "urlLabel": "Dirección de la app",
+    "urlHint": "La dirección que abre el código al escanearlo",
+    "urlError": "Escribe una dirección web que empiece por https://",
+    "alt": "Código QR que abre {url}",
+    "png": "Descargar PNG",
+    "svg": "Descargar SVG",
+    "print": "Imprimir",
+    "pngSaved": "PNG guardado",
+    "svgSaved": "SVG guardado",
+    "printTitle": "Escanea y comparte tus fotos",
+    "error": "No se ha podido preparar el código QR."
+  }
+}

@@ -5,6 +5,7 @@ html { background: var(--color-bg); color: var(--color-text); }
 ::selection { background: var(--color-primary); color: var(--color-on-primary); }
 button, [role="button"], [type="button"], [type="submit"], [type="reset"] { cursor: pointer; }
 input, textarea, select { font-size: 1rem; } /* iOS zoom prevention */
+html { accent-color: var(--color-primary); caret-color: var(--color-primary); }
 
 .z-drawer-backdrop { z-index: var(--z-drawer-backdrop); }
 .z-drawer          { z-index: var(--z-drawer); }
@@ -31,11 +32,27 @@ dialog::backdrop { background: color-mix(in srgb, var(--color-text) 55%, transpa
 
 /* Display, title and heading use the serif; everything else stays on --font-sans. */
 .text-display    { font-family: var(--font-display); font-size: var(--text-display); font-weight: var(--font-weight-black);   line-height: var(--leading-tight);  letter-spacing: var(--tracking-tight); }
+/* The page's one big line: fluid from a phone held at arm's length to a wide screen. */
+.text-hero       { font-family: var(--font-display); font-size: var(--text-hero); font-weight: var(--font-weight-semibold); line-height: 1.06; letter-spacing: var(--tracking-tight); }
+.text-hero em, .text-title em { font-style: italic; font-weight: var(--font-weight-medium); color: var(--color-text); }
 .text-title      { font-family: var(--font-display); font-size: var(--text-4xl);     font-weight: var(--font-weight-bold);    line-height: var(--leading-tight); }
 .text-heading    { font-family: var(--font-display); font-size: var(--text-2xl);     font-weight: var(--font-weight-bold);    line-height: var(--leading-snug); }
 .text-subheading { font-size: var(--text-xl);      font-weight: var(--font-weight-semibold);line-height: var(--leading-snug); }
 .text-body       { font-size: var(--text-base);    font-weight: var(--font-weight-regular); line-height: var(--leading-normal); color: var(--color-text); }
 .text-body-sm    { font-size: var(--text-sm);      font-weight: var(--font-weight-regular); line-height: var(--leading-normal); color: var(--color-text-muted); }
 .text-button     { font-size: var(--text-base);    font-weight: var(--font-weight-semibold);line-height: 1; }
-.text-wordmark   { font-family: var(--font-display); font-size: var(--text-xl); font-weight: var(--font-weight-semibold); line-height: 1; }
+.text-wordmark   { font-family: var(--font-display); font-size: var(--text-xl); font-weight: var(--font-weight-bold); font-style: italic; line-height: 1; }
+/* A name written on a print: the display italic, no colour of its own (it sits on the blue strip). */
+.text-signature  { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: var(--font-weight-semibold); font-style: italic; line-height: 1.2; }
 .text-label      { font-size: var(--text-sm);      font-weight: var(--font-weight-semibold);letter-spacing: var(--tracking-widest); text-transform: uppercase; }
+
+/* The album's photo-corner mounts: foil in the brand colour, lit from the top left. Built from
+   the tokens only, so a new palette restyles it. */
+@utility bg-mount {
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 75%);
+}
+
+/* Soft light inside the photocall print before the camera is on. */
+@utility bg-cielo {
+  background: linear-gradient(to bottom, var(--color-surface-2) 0%, var(--color-surface) 70%);
+}

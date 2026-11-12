@@ -11,7 +11,7 @@ import { initDropIn } from "@/utils/animations/drop-in"
 import { useTranslations } from "use-intl"
 
 const ICON = { success: IconCheck, error: IconAlert, warning: IconWarning, info: IconInfo } as const
-const TONE = { success: "text-success", error: "text-danger", warning: "text-warning", info: "text-info" } as const
+const TONE = { success: "bg-success", error: "bg-danger", warning: "bg-warning", info: "bg-info" } as const
 
 export const ToastItem = ({ toast }: { toast: Toast }) => {
   const t = useTranslations("toast")
@@ -34,14 +34,15 @@ export const ToastItem = ({ toast }: { toast: Toast }) => {
     <li ref={rootRef}>
       <div
         data-anim="drop-in"
-        className="invisible flex w-[min(100vw-2rem,26rem)] items-center gap-3 rounded-xl border border-border bg-surface py-2 pr-2 pl-4 shadow-md"
+        className="invisible flex w-[min(100vw-2rem,26rem)] items-center gap-3 rounded-full bg-surface p-2 shadow-lg"
       >
-        <Icon className={`h-[1.15rem] w-[1.15rem] shrink-0 ${TONE[toast.type]}`} />
+        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${TONE[toast.type]}`}>
+          <Icon className="h-5 w-5 text-on-primary" />
+        </span>
         <p className="text-body grow">{toast.message}</p>
         <Button
-          variant="outlined"
+          variant="bare"
           size="sm"
-          className="border-transparent"
           aria-label={t("dismiss")}
           icon={<IconClose className="h-4 w-4" />}
           onClick={() => dismiss(toast.id)}
