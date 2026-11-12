@@ -34,7 +34,9 @@ jobs:
           fi
       - name: Secret scan of the bundle
         run: |
-          if grep -rEn "sb_secret_|sbp_[0-9a-f]{20,}|service_role|SUPABASE_ACCESS_TOKEN|SUPABASE_DB_PASSWORD" dist; then
+          # Real secret VALUES only: the word "service_role" also appears inside supabase-js itself.
+          # c2VydmljZV9yb2xl = base64 "service_role", i.e. a service-role JWT payload.
+          if grep -rEnl "sb_secret_[A-Za-z0-9_-]{10,}|sbp_[0-9a-f]{20,}|eyJ[A-Za-z0-9_-]*c2VydmljZV9yb2xl" dist; then
             echo "::error::A secret reached dist/"; exit 1
           fi
 

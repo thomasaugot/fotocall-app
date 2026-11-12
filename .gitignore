@@ -34,3 +34,5 @@ supabase/.branches
 
 # vite-plugin-pwa dev output
 dev-dist
+.vercel
+.env*

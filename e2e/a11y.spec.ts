@@ -11,6 +11,11 @@ for (const route of ROUTES) {
     await waitForPageReady(page)
     // Entrance fades finished: axe reads half-faded text as low contrast.
     await page.waitForFunction(() => getComputedStyle(document.getElementById("main-content") as HTMLElement).opacity === "1")
+    // …and every GSAP entrance inside the page too (a visible data-anim target mid-fade fails contrast).
+    await page.waitForFunction(() => [...document.querySelectorAll<HTMLElement>("[data-anim]")].every((el) => {
+      const style = getComputedStyle(el)
+      return style.visibility === "hidden" || style.opacity === "1"
+    }))
     const result = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()
     const blocking = result.violations.filter((v) => v.impact === "serious" || v.impact === "critical")
     expect(blocking.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`)).toEqual([])
