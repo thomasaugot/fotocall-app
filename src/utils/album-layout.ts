@@ -1,5 +1,5 @@
 import { LANDSCAPE_ABOVE, LEAF_TEMPLATES, PORTRAIT_BELOW, PRIORITY_PHOTOS } from "@/constants/gallery"
-import type { AlbumCounts, AlbumLeaf, AlbumRow, Orientation } from "@/types/album"
+import type { AlbumCounts, AlbumLeaf, AlbumPhoto, AlbumRow, Orientation } from "@/types/album"
 import type { Photo } from "@/types/photo"
 
 export const orientationOf = (width: number, height: number): Orientation => {
@@ -12,6 +12,14 @@ export const orientationOf = (width: number, height: number): Orientation => {
 
 // `photos` arrives newest first. Leaves are cut from the OLDEST photo so they stay put while the
 // party goes on, then returned newest leaf first, newest print first inside each leaf.
+// The wall: every photo newest first, with its shape and whether it loads first (above the fold).
+export const albumWall = (photos: Photo[]): AlbumPhoto[] =>
+  photos.map((photo, index) => ({
+    ...photo,
+    orientation: orientationOf(photo.width, photo.height),
+    priority: index < PRIORITY_PHOTOS,
+  }))
+
 export const composeAlbum = (photos: Photo[]): AlbumLeaf[] => {
   const priority = new Set(photos.slice(0, PRIORITY_PHOTOS).map((photo) => photo.id))
   const chronological = photos.toReversed()
@@ -53,3 +61,12 @@ export const albumCounts = (photos: Photo[]): AlbumCounts => ({
   photos: photos.length,
   guests: new Set(photos.map((photo) => photo.ownerId)).size,
 })
+
+// Prints laid on a table: each keeps the same small tilt every time it is drawn (a hash of its id).
+export const PRINT_TILTS = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "rotate-[0.5deg]", "-rotate-[1.5deg]"] as const
+
+export const printTilt = (id: string): (typeof PRINT_TILTS)[number] => {
+  let hash = 0
+  for (const char of id) hash = (hash * 31 + char.charCodeAt(0)) | 0
+  return PRINT_TILTS[Math.abs(hash) % PRINT_TILTS.length]
+}

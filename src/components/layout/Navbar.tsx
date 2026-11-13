@@ -54,7 +54,7 @@ export const Navbar = () => {
   return (
     <header ref={headerRef} role="banner" aria-label={t("brand")} className="z-nav fixed inset-x-0 top-0 h-16">
       <div data-anim="nav-bg" aria-hidden="true" className="invisible absolute inset-0 bg-bg/95" />
-      <div className="relative mx-auto flex h-full max-w-5xl items-center justify-between gap-3 px-4">
+      <div className="relative mx-auto flex h-full max-w-6xl items-center justify-between gap-3 px-4 md:px-8 xl:px-12">
         <TransitionLink href={localizedPath("home", locale)} className="flex items-center rounded-sm text-text">
           <BrandLockup />
         </TransitionLink>

@@ -4,7 +4,8 @@
 export const LEAF_TEMPLATES = [[1, 2], [2, 2], [2, 1]] as const
 
 // 14-PERFORMANCE "Long lists": leaves shown at first and added by each "Ver más".
-export const LEAVES_PER_STEP = 8
+// The wall shows this many photos, then "Ver más" adds as many again (14, "Long lists").
+export const PHOTOS_PER_STEP = 30
 
 // The first prints of the first leaf are the first screen: loaded eagerly, high priority.
 export const PRIORITY_PHOTOS = 2

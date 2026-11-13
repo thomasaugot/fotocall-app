@@ -21,7 +21,7 @@ export const HomeMyPhotos = () => {
   }
 
   return (
-    <section aria-labelledby="home-mine-title" className="flex w-full flex-col gap-6 xl:col-span-2">
+    <section aria-labelledby="home-mine-title" className="flex w-full flex-col gap-6 xl:col-span-2 xl:row-start-5">
       <div className="flex flex-col items-center gap-1 text-center">
         <h2 id="home-mine-title" className="text-heading">{t("title")}</h2>
         <p className="text-body-sm">{t("count", { count: mine.length })}</p>

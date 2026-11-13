@@ -17,7 +17,7 @@ export const GalleryPage = () => {
   return (
     <>
       <PageMeta namespace="gallery" />
-      <section aria-labelledby="gallery-title" className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-5 pt-10 pb-8 md:gap-12 md:pt-14">
+      <section aria-labelledby="gallery-title" className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 pt-10 pb-8 md:gap-12 md:px-8 md:pt-14 xl:px-12">
         <GalleryHeader photos={photos.data} />
         {photos.data.length === 0
           ? <GalleryEmpty />

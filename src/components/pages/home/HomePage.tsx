@@ -20,7 +20,7 @@ export const HomePage = () => {
       <PageMeta namespace="home" />
       <section
         aria-labelledby="home-title"
-        className="mx-auto flex w-full max-w-6xl flex-col gap-10 overflow-x-clip px-5 pt-8 pb-16 md:gap-6 md:px-8 xl:grid xl:min-h-[calc(100svh-4rem)] xl:grid-cols-[minmax(0,1fr)_auto] xl:content-center xl:items-start xl:gap-x-24 xl:gap-y-10 xl:py-8"
+        className="mx-auto flex w-full max-w-6xl flex-col gap-10 overflow-x-clip px-5 pt-8 pb-16 md:gap-6 md:px-8 xl:grid xl:min-h-[calc(100svh-4rem)] xl:grid-cols-2 xl:grid-rows-[1fr_auto_auto_1fr] xl:items-center xl:gap-x-20 xl:gap-y-14 xl:px-12 xl:py-10"
       >
         <HomeIntro />
         <HomeStage

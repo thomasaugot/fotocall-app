@@ -65,7 +65,7 @@ export const HomeStage = ({ photocall, name, needsName, onSave, onEdit }: Props)
   return (
     <div
       ref={rootRef}
-      className="relative mx-auto flex w-full max-w-[min(100%,calc((100svh-9rem)*0.7))] scroll-mb-6 flex-col gap-6 xl:col-start-2 xl:row-span-2 xl:row-start-1 xl:max-w-[calc((100svh-13rem)*0.72)] xl:min-w-[22rem]"
+      className="relative mx-auto flex w-full max-w-[min(100%,calc((100svh-9rem)*0.7))] scroll-mb-6 flex-col gap-6 xl:col-start-2 xl:row-span-4 xl:row-start-1 xl:max-w-[min(100%,calc((100svh-12rem)*0.72))] xl:justify-self-center"
     >
       <div className="relative px-6">
         <div data-anim="stage-gloria" className="invisible absolute -top-[30%] left-1/2 w-[170%] -translate-x-1/2">

@@ -1,14 +1,15 @@
 import { lazy, Suspense, useState } from "react"
 import { useNow, useTranslations } from "use-intl"
-import { GalleryLeaf } from "@/components/pages/gallery/GalleryLeaf"
+import { GalleryNewest } from "@/components/pages/gallery/GalleryNewest"
+import { GalleryPrint } from "@/components/pages/gallery/GalleryPrint"
 import { Button } from "@/components/ui/Button"
-import { LEAVES_PER_STEP } from "@/constants/gallery"
+import { PHOTOS_PER_STEP } from "@/constants/gallery"
 import { useLoaderGone } from "@/hooks/useAppReady"
 import { useGSAPAnimations } from "@/hooks/useGSAPAnimations"
 import { useMotionPreference } from "@/hooks/useMotionPreference"
 import { usePhotoViewer } from "@/hooks/usePhotoViewer"
 import type { Photo } from "@/types/photo"
-import { composeAlbum } from "@/utils/album-layout"
+import { albumWall } from "@/utils/album-layout"
 import { initMountReveal } from "@/utils/animations/mount-reveal"
 
 interface GalleryAlbumProps {
@@ -22,15 +23,16 @@ const loadViewer = () =>
 const GalleryViewer = lazy(loadViewer)
 const preloadViewer = () => void loadViewer()
 
-// The album: leaves of prints, newest first, a few leaves at a time (14, "Long lists").
+// The newest photo large on its own, then the others as prints laid on the table, newest first,
+// in columns that keep each photo's shape (2 on a phone, 3 on a tablet, 4 on a desktop).
 export const GalleryAlbum = ({ photos, guestId }: GalleryAlbumProps) => {
   const t = useTranslations("gallery.album")
   const now = useNow({ updateInterval: 60_000 })
   const { preference } = useMotionPreference()
   const loaderGone = useLoaderGone()
-  const [shown, setShown] = useState(LEAVES_PER_STEP)
+  const [shown, setShown] = useState(PHOTOS_PER_STEP)
   const viewer = usePhotoViewer(photos)
-  const leaves = composeAlbum(photos)
+  const [newest, ...wall] = albumWall(photos)
   // An entrance: it waits for the opening loader to lift (05-ANIMATIONS, loaderGone).
   const rootRef = useGSAPAnimations<HTMLDivElement>(
     () => (loaderGone ? { critical: [(root) => initMountReveal(root, preference === "reduced")] } : {}),
@@ -38,14 +40,15 @@ export const GalleryAlbum = ({ photos, guestId }: GalleryAlbumProps) => {
   )
 
   return (
-    <div ref={rootRef} className="flex flex-col gap-10">
-      <ul aria-label={t("label")} className="grid gap-x-1.5 gap-y-6 md:grid-cols-2 md:gap-y-10">
-        {leaves.slice(0, shown).map((leaf) => (
-          <GalleryLeaf key={leaf.id} leaf={leaf} now={now} onOpen={viewer.open} onIntent={preloadViewer} />
+    <div ref={rootRef} className="flex flex-col gap-16 md:gap-20">
+      {newest && <GalleryNewest photo={newest} now={now} onOpen={viewer.open} onIntent={preloadViewer} />}
+      <ul aria-label={t("label")} className="columns-2 gap-5 md:columns-3 md:gap-8 xl:columns-4">
+        {wall.slice(0, shown).map((photo) => (
+          <GalleryPrint key={photo.id} photo={photo} now={now} onOpen={viewer.open} onIntent={preloadViewer} />
         ))}
       </ul>
-      {leaves.length > shown && (
-        <Button variant="outlined" size="lg" className="self-center" onClick={() => setShown(shown + LEAVES_PER_STEP)}>
+      {wall.length > shown && (
+        <Button variant="outlined" size="lg" className="self-center" onClick={() => setShown(shown + PHOTOS_PER_STEP)}>
           {t("more")}
         </Button>
       )}

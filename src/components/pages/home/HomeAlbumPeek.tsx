@@ -21,7 +21,7 @@ export const HomeAlbumPeek = () => {
     <TransitionLink
       href={localizedPath("gallery", locale)}
       aria-label={t("open")}
-      className="mx-auto mt-8 flex w-fit max-w-full flex-col items-center gap-8 rounded-lg py-2 text-center xl:flex-row xl:text-left xl:col-start-1 xl:row-start-2 xl:mx-0"
+      className="mx-auto mt-8 flex w-fit max-w-full flex-col items-center gap-8 rounded-lg py-2 text-center xl:col-start-1 xl:row-start-3 xl:mx-0 xl:mt-0 xl:items-start xl:gap-6 xl:self-start xl:text-left"
     >
       <span aria-hidden="true" className="flex shrink-0 items-start pl-1">
         {latest.toReversed().map((photo, i) => (

@@ -35,5 +35,8 @@
   "delete": {
     "success": "Foto eliminada del álbum",
     "error": "No se ha podido eliminar la foto. Inténtalo de nuevo."
+  },
+  "newest": {
+    "label": "Recién llegada"
   }
 }

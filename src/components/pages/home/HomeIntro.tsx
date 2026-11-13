@@ -4,7 +4,7 @@ import { useTranslations } from "use-intl"
 export const HomeIntro = () => {
   const t = useTranslations("home")
   return (
-    <div className="flex flex-col items-center gap-4 text-center xl:items-start xl:self-end xl:text-left">
+    <div className="flex flex-col items-center gap-4 text-center xl:col-start-1 xl:row-start-2 xl:items-start xl:self-end xl:text-left">
       <p className="flex flex-col items-center gap-1 xl:items-start">
         <span className="text-label"><span className="text-text-subtle">{t("occasion")}</span></span>
         <span className="text-body-sm">{t("date")}</span>

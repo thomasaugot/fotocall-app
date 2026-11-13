@@ -78,3 +78,23 @@ describe("albumCounts", () => {
     expect(albumCounts([])).toEqual({ photos: 0, guests: 0 })
   })
 })
+
+describe("albumWall", () => {
+  it("keeps the album order and loads the first few photos first", async () => {
+    const { albumWall } = await import("@/utils/album-layout")
+    const photos = album(12)
+    const wall = albumWall(photos)
+    expect(wall.map((p) => p.id)).toEqual(photos.map((p) => p.id))
+    expect(wall[0].priority).toBe(true)
+    expect(wall.at(-1)?.priority).toBe(false)
+    expect(wall[0].orientation).toMatch(/portrait|square|landscape/)
+  })
+})
+
+describe("printTilt", () => {
+  it("gives each photo a stable small tilt", async () => {
+    const { printTilt, PRINT_TILTS } = await import("@/utils/album-layout")
+    expect(printTilt("abc")).toBe(printTilt("abc"))
+    expect(PRINT_TILTS).toContain(printTilt("photo-1"))
+  })
+})

@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useTranslations } from "use-intl"
-import { GalleryCorners } from "@/components/pages/gallery/GalleryCorners"
 import { Pressable } from "@/components/ui/Pressable"
 import type { AlbumPhoto } from "@/types/album"
 
@@ -10,7 +9,7 @@ interface GalleryPhotoProps {
   onIntent: () => void
 }
 
-// One print held by its four corners. Pressing it loosens the corners and opens the viewer.
+// One photo of the wall. Pressing it opens the viewer.
 export const GalleryPhoto = ({ photo, onOpen, onIntent }: GalleryPhotoProps) => {
   const t = useTranslations("gallery.photo")
   const [loaded, setLoaded] = useState(false)
@@ -20,7 +19,7 @@ export const GalleryPhoto = ({ photo, onOpen, onIntent }: GalleryPhotoProps) => 
       aria-label={t("open", { name: photo.guestName })}
       onPointerDown={onIntent}
       onClick={() => onOpen(photo.id)}
-      className="group relative block w-full bg-surface-2 shadow-sm transition-transform duration-200 ease-out active:scale-[0.985]"
+      className="relative block w-full overflow-hidden rounded-[2px] bg-surface-2 active:scale-[0.985]"
     >
       <img
         src={photo.thumbUrl}
@@ -32,7 +31,6 @@ export const GalleryPhoto = ({ photo, onOpen, onIntent }: GalleryPhotoProps) => 
         onLoad={() => setLoaded(true)}
         className={`block h-auto w-full transition-opacity duration-500 ease-out ${loaded ? "opacity-100" : "opacity-0"}`}
       />
-      <GalleryCorners />
     </Pressable>
   )
 }
