@@ -21,23 +21,23 @@ export const InstallBar = () => {
     <>
     <aside
       aria-label={t("installTitle")}
-      className="z-toast fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] mx-auto flex max-w-md items-center gap-4 rounded-xl bg-primary py-3 pr-2 pl-4 shadow-lg"
+      className="z-toast fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] mx-auto grid max-w-md [grid-template-columns:auto_minmax(0,1fr)_auto] items-start gap-x-3 gap-y-4 rounded-xl bg-primary p-4 pr-2 shadow-lg"
       data-ground="ink"
     >
       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-surface">
         <BrandMark className="h-7 w-7" />
       </span>
-      <p className="flex min-w-0 grow flex-col gap-0.5">
+      <p className="flex min-w-0 flex-col gap-0.5">
         <span className="text-button leading-snug text-on-primary">{t("installTitle")}</span>
         <span className="text-body-sm"><span className="text-on-primary/80">{offer === "ios-hint" ? t("iosHint") : t("installBody")}</span></span>
       </p>
+      <Button variant="bare" size="sm" aria-label={t("installDismiss")} icon={<IconClose className="h-5 w-5 text-on-primary" />} onClick={dismiss} className="-mt-2" />
       {offer === "prompt" && (
-        <Button variant="inverse" size="sm" icon={<IconDownload className="h-4 w-4" />} onClick={() => void install()}>{t("install")}</Button>
+        <Button variant="inverse" size="sm" icon={<IconDownload className="h-4 w-4" />} onClick={() => void install()} className="col-span-full mr-2">{t("install")}</Button>
       )}
       {offer === "ios-hint" && (
-        <Button variant="inverse" size="sm" onClick={() => setStepsOpen(true)}>{t("how")}</Button>
+        <Button variant="inverse" size="sm" onClick={() => setStepsOpen(true)} className="col-span-full mr-2">{t("how")}</Button>
       )}
-      <Button variant="bare" size="sm" aria-label={t("installDismiss")} icon={<IconClose className="h-5 w-5 text-on-primary" />} onClick={dismiss} />
     </aside>
     <InstallSteps isOpen={stepsOpen} onClose={() => setStepsOpen(false)} />
     </>

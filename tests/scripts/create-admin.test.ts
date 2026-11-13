@@ -10,6 +10,8 @@ describe("create-admin checkEnv", () => {
     expect(() => checkEnv({ ...env, SUPABASE_URL: "https://x.supabase.co" }, [])).toThrow(/not local/))
   it("allows Cloud with --allow-cloud", () =>
     expect(checkEnv({ ...env, SUPABASE_URL: "https://x.supabase.co" }, ["--allow-cloud"]).url).toContain("supabase.co"))
-  it("needs every variable", () => expect(() => checkEnv({ ...env, ADMIN_PASSWORD: "" }, [])).toThrow(/must be set/))
+  it("needs the email", () => expect(() => checkEnv({ ...env, ADMIN_EMAIL: "" }, [])).toThrow(/must be set/))
+  it("gives a long random password when none is set (magic link only)", () =>
+    expect(checkEnv({ ...env, ADMIN_PASSWORD: "" }, []).password.length).toBeGreaterThan(30))
   it("refuses a short password", () => expect(() => checkEnv({ ...env, ADMIN_PASSWORD: "short" }, [])).toThrow(/at least/))
 })

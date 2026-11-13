@@ -5,12 +5,12 @@
   },
   "login": {
     "title": "Administración",
-    "body": "Escribe la contraseña para gestionar el álbum.",
-    "passwordLabel": "Contraseña",
-    "show": "Mostrar contraseña",
-    "hide": "Ocultar contraseña",
-    "submit": "Entrar",
-    "error": "No hemos podido entrar. Revisa la contraseña e inténtalo de nuevo."
+    "body": "Escribe tu correo y te enviamos un enlace para entrar. Sin contraseña.",
+    "emailLabel": "Correo",
+    "submit": "Enviarme el enlace",
+    "sent": "Si {email} es un administrador, el enlace ya está en su correo. Ábrelo en este dispositivo.",
+    "again": "Enviar otro",
+    "error": "No se ha podido enviar el enlace. Inténtalo de nuevo en un momento."
   },
   "dashboard": {
     "title": "Administración",

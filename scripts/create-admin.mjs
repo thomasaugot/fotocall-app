@@ -1,22 +1,24 @@
-// Creates (or updates) the admin user: email + password, confirmed, app_metadata.role = "admin".
-// Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, ADMIN_EMAIL, ADMIN_PASSWORD. Nothing is written to a file.
+// Creates (or updates) the admin user: confirmed, app_metadata.role = "admin". The admin signs in
+// with a magic link; the account gets a long random password nobody knows (ADMIN_PASSWORD only
+// for tests). Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, ADMIN_EMAIL. Nothing is written to a file.
 // Refuses a non-local URL unless --allow-cloud (Cloud needs Thomas's explicit OK).
+import { randomBytes } from "node:crypto"
 import { createClient } from "@supabase/supabase-js"
 
 const MIN_PASSWORD = 10
 
 export const checkEnv = (env, argv) => {
   const { SUPABASE_URL: url, SUPABASE_SERVICE_ROLE_KEY: key, ADMIN_EMAIL: email, ADMIN_PASSWORD: password } = env
-  if (!url || !key || !email || !password) {
-    throw new Error("SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, ADMIN_EMAIL and ADMIN_PASSWORD must be set.")
+  if (!url || !key || !email) {
+    throw new Error("SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY and ADMIN_EMAIL must be set.")
   }
   const host = new URL(url).hostname
   const isLocal = host === "127.0.0.1" || host === "localhost"
   if (!isLocal && !argv.includes("--allow-cloud")) {
     throw new Error(`Refusing to run against ${url}: not local. Cloud needs Thomas's explicit OK, then --allow-cloud.`)
   }
-  if (password.length < MIN_PASSWORD) throw new Error(`ADMIN_PASSWORD must have at least ${MIN_PASSWORD} characters.`)
-  return { url, key, email, password }
+  if (password && password.length < MIN_PASSWORD) throw new Error(`ADMIN_PASSWORD must have at least ${MIN_PASSWORD} characters.`)
+  return { url, key, email, password: password || randomBytes(32).toString("base64url") }
 }
 
 const findByEmail = async (supabase, email) => {
