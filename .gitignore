@@ -36,3 +36,6 @@ supabase/.branches
 dev-dist
 .vercel
 .env*
+
+# npm run verify: throwaway production build for the PWA spec
+.verify-dist

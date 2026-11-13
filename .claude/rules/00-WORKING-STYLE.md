@@ -114,3 +114,8 @@ so it can be looked at, like `/zzloader` for the page loader):
 TypeScript · Tailwind v4 (CSS-only, no config file) · GSAP via `@/lib/gsap` — **never Framer
 Motion** · Lenis · hand-built UI primitives, no component libraries. The framework and its
 extras are in the stack's `00-STACK.md`.
+
+## Every test passes BEFORE the push
+
+- Run the full suite locally (`npm run verify`) and push only when it is all green. The
+  `pre-push` git hook enforces it. CI must never be the first place a test fails.

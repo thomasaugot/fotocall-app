@@ -26,7 +26,7 @@ test.describe("admin dashboard", () => {
   test("shows the album, the selection and the QR, with no serious a11y violation", async ({ page }) => {
     await page.goto("/admin")
     await waitForPageReady(page)
-    await expect(page.locator("h1")).toHaveText("Administración")
+    await expect(page.locator("h1")).toHaveText("El álbum")
     await expect(page.getByRole("checkbox", { name: "Seleccionar la foto de TEST - Tía Carmen" })).toBeAttached()
     await expect(page.getByRole("img", { name: /Código QR que abre/ })).toBeVisible()
     await page.getByRole("checkbox", { name: "Seleccionar todas" }).check({ force: true })

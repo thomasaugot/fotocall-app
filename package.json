@@ -17,7 +17,8 @@
     "test:e2e": "playwright test --grep-invert @visual",
     "test:visual": "playwright test --grep @visual",
     "size": "size-limit",
-    "analyze": "vite build --mode analyze"
+    "analyze": "vite build --mode analyze",
+    "verify": "bash scripts/verify.sh"
   },
   "engines": {
     "node": ">=26"

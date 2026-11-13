@@ -195,11 +195,17 @@ their own typecheck in CI, a typo there reaches production untouched.
 Lint must be **zero errors**: an existing error backlog means CI can never go green, so clear
 it before turning CI on (several will be real bugs — conditional hooks, cascading setState).
 
-## Deploys wait for the FAST checks only
+## Every test passes locally BEFORE the push
 
-Thomas, Nov 2026: a deploy that waits for the full E2E run (8–20 min) is not acceptable. The
-deploy waits for `checks` (lint, types, unit tests, build, size, secret scan: ~2 min); E2E and
-Lighthouse run alongside and report, without holding it.
+Thomas, Nov 2026: "the tests should be ran before we push, not during the deploy." Before every
+push, `npm run verify` runs the WHOLE suite locally — lint, types, unit, database (local stack),
+every E2E spec on the three CI devices (mobile, desktop, iphone), and the PWA/offline spec against a production build in a
+throwaway folder (`vite build --outDir .verify-dist`: the one sanctioned local build). Push only
+when it is all green; a `pre-push` git hook (`.githooks/pre-push`, `git config core.hooksPath
+.githooks`) runs it and blocks a red push. CI must never be the first place a test fails.
+
+The deploy itself still waits only for the fast `checks` (~2 min) so a green push is live fast;
+E2E and Lighthouse repeat in CI alongside as a second net.
 
 ```yaml
 # ci.yml — last job

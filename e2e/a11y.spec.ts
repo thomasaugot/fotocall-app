@@ -12,9 +12,12 @@ for (const route of ROUTES) {
     // Entrance fades finished: axe reads half-faded text as low contrast.
     await page.waitForFunction(() => getComputedStyle(document.getElementById("main-content") as HTMLElement).opacity === "1")
     // …and every GSAP entrance inside the page too (a visible data-anim target mid-fade fails contrast).
+    // Every animated element that carries text must have finished fading in (an entrance can start
+    // a moment after the loader goes). Decorative layers (the faint rays) stay translucent on
+    // purpose and carry no text, so they are skipped.
     await page.waitForFunction(() => [...document.querySelectorAll<HTMLElement>("[data-anim]")].every((el) => {
       const style = getComputedStyle(el)
-      return style.visibility === "hidden" || style.opacity === "1"
+      return !el.textContent?.trim() || (style.visibility === "visible" && style.opacity === "1")
     }))
     const result = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()
     const blocking = result.violations.filter((v) => v.impact === "serious" || v.impact === "critical")
