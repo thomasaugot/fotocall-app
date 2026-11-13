@@ -8,7 +8,7 @@ const album = (n: number, owner = (i: number) => `guest-${i % 3}`): Photo[] =>
     const i = n - k
     return {
       id: `p${i}`, ownerId: owner(i), guestName: `Invitado ${i}`, url: `https://x.test/${i}.webp`,
-      storagePath: `u/${i}.webp`, width: 1536, height: 2048, createdAt: new Date(2026, 4, 9, 12, i).toISOString(),
+      storagePath: `u/${i}.webp`, width: 1536, height: 2048, createdAt: new Date(2026, 4, 9, 12, i).toISOString(), hidden: false, thumbUrl: "t", thumbPath: null,
     }
   })
 

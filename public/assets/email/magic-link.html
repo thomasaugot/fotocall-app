@@ -1,0 +1,50 @@
+<!--
+  Supabase (GoTrue) magic-link template for Mi fotocall: the admin's sign-in link.
+
+  Table layout and inline styles on purpose: Gmail, Outlook and Apple Mail strip <style>
+  blocks and ignore flexbox. Colours are the theme.css tokens, hardcoded (an email cannot read
+  CSS variables). {{ .ConfirmationURL }} is GoTrue's placeholder: never rename it.
+
+  A FRAGMENT, like Fronton King's: GoTrue strips or mangles a full <html>/<body> document, so the
+  outer table carries the page background and covers the client's own ground.
+  Same file in public/assets/email/magic-link.html for review (10-SEO): keep them identical.
+-->
+<table role="presentation" width="100%" height="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f8f8f6;margin:0;width:100%;min-width:100%;">
+  <tr>
+    <td align="center" style="padding:40px 16px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:480px;">
+        <tr>
+          <td style="padding:0 8px 24px 8px;font-family:Georgia,'Times New Roman',serif;font-size:26px;font-style:italic;font-weight:bold;color:#17264a;">
+            Mi fotocall<span style="color:#bf9a4a;">.</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:#ffffff;border-radius:16px;padding:36px 32px;box-shadow:0 6px 16px rgba(20,28,46,0.10);">
+            <p style="margin:0 0 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#5a6170;">Administración</p>
+            <h1 style="margin:0 0 16px 0;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.2;font-weight:bold;color:#141c2e;">Tu enlace para entrar</h1>
+            <p style="margin:0 0 28px 0;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#4a5263;">Pulsa el botón para abrir el panel del álbum. Sin contraseña: este enlace te deja dentro.</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="center" bgcolor="#17264a" style="border-radius:999px;">
+                  <a href="{{ .ConfirmationURL }}" style="display:block;padding:16px 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;border-radius:999px;">Entrar en el panel</a>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:28px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#5a6170;">Ábrelo en el mismo navegador donde lo pediste. El enlace caduca en una hora y solo sirve una vez.</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:24px 8px 0 8px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#5a6170;">
+            Si el botón no funciona, copia esta dirección en el navegador:<br>
+            <a href="{{ .ConfirmationURL }}" style="color:#17264a;word-break:break-all;">{{ .ConfirmationURL }}</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 8px 0 8px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#5a6170;">
+            ¿No has pedido entrar? Ignora este correo: nadie puede entrar sin este enlace.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

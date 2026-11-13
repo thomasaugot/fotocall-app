@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { fitWithin, isAcceptedImage, storagePathFor } from "@/utils/image-file"
+import { fitWithin, isAcceptedImage, storagePathFor, photoFiles } from "@/utils/image-file"
 
 const file = (type: string, size: number) => ({ type, size })
 
@@ -36,5 +36,15 @@ describe("storagePathFor", () => {
 
   it("refuses a type the bucket does not accept", () => {
     expect(() => storagePathFor("owner-1", "image/png")).toThrow()
+  })
+})
+
+describe("thumbnails", () => {
+  it("prefixes the grid copy inside the owner's folder", () => {
+    expect(storagePathFor("u1", "image/webp", "thumb-")).toMatch(/^u1\/thumb-[0-9a-f-]+\.webp$/)
+  })
+  it("lists both files of a photo, or just the full one for older photos", () => {
+    expect(photoFiles({ storagePath: "u/a.webp", thumbPath: "u/thumb-a.webp" })).toEqual(["u/a.webp", "u/thumb-a.webp"])
+    expect(photoFiles({ storagePath: "u/a.webp", thumbPath: null })).toEqual(["u/a.webp"])
   })
 })

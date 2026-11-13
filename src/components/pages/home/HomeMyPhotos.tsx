@@ -17,7 +17,7 @@ export const HomeMyPhotos = () => {
 
   const confirm = () => {
     if (!doomed) return
-    remove.mutate({ id: doomed.id, storagePath: doomed.storagePath }, { onSettled: () => setDoomed(null) })
+    remove.mutate(doomed, { onSettled: () => setDoomed(null) })
   }
 
   return (
@@ -26,11 +26,11 @@ export const HomeMyPhotos = () => {
         <h2 id="home-mine-title" className="text-heading">{t("title")}</h2>
         <p className="text-body-sm">{t("count", { count: mine.length })}</p>
       </div>
-      <ul data-lenis-prevent className="-mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pt-2 pb-6 [scrollbar-width:none]">
+      <ul data-lenis-prevent className="-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 pt-4 pb-12 no-scrollbar">
         {mine.map((photo) => (
           <li key={photo.id} className="relative w-40 shrink-0 snap-center rounded-sm bg-surface p-2 pb-3 shadow-md md:w-48">
             <img
-              src={photo.url}
+              src={photo.thumbUrl}
               alt={t("alt")}
               width={photo.width}
               height={photo.height}

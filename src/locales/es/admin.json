@@ -13,13 +13,15 @@
     "error": "No se ha podido enviar el enlace. Inténtalo de nuevo en un momento."
   },
   "dashboard": {
-    "title": "Administración",
-    "signOut": "Cerrar sesión"
+    "title": "El álbum",
+    "signOut": "Cerrar sesión",
+    "eyebrow": "Administración"
   },
   "stats": {
     "label": "Resumen del álbum",
     "photos": "{count, plural, one {foto} other {fotos}}",
-    "guests": "{count, plural, one {invitado} other {invitados}}"
+    "guests": "{count, plural, one {invitado} other {invitados}}",
+    "hidden": "{count, plural, one {oculta} other {ocultas}}"
   },
   "photos": {
     "title": "Fotos",
@@ -31,7 +33,12 @@
     "list": "Fotos del álbum",
     "photoOf": "Foto de {name}",
     "select": "Seleccionar la foto de {name}",
-    "download": "Descargar la foto de {name}"
+    "download": "Descargar la foto de {name}",
+    "filterLabel": "Qué fotos ver",
+    "all": "Todas",
+    "onlyHidden": "Ocultas",
+    "emptyHidden": "No hay fotos ocultas: los invitados lo ven todo.",
+    "toolbar": "Acciones de la selección"
   },
   "delete": {
     "title": "Eliminar fotos",
@@ -59,6 +66,39 @@
     "pngSaved": "PNG guardado",
     "svgSaved": "SVG guardado",
     "printTitle": "Escanea y comparte tus fotos",
-    "error": "No se ha podido preparar el código QR."
+    "error": "No se ha podido preparar el código QR.",
+    "plain": "Solo el código",
+    "framed": "Tarjeta con marco",
+    "card": "Descargar tarjeta",
+    "cardSaved": "Tarjeta guardada",
+    "versions": "Versión del código",
+    "cardPreviewOccasion": "Primera Comunión de Lucas"
+  },
+  "hide": {
+    "hide": "Ocultar",
+    "show": "Mostrar",
+    "hideSelected": "Ocultar selección",
+    "showSelected": "Mostrar selección",
+    "badge": "Oculta",
+    "hidden": "{count, plural, one {Foto oculta: los invitados ya no la ven} other {# fotos ocultas: los invitados ya no las ven}}",
+    "shown": "{count, plural, one {Foto visible otra vez} other {# fotos visibles otra vez}}",
+    "error": "No se ha podido cambiar. Inténtalo de nuevo."
+  },
+  "viewer": {
+    "title": "Foto de {name}",
+    "position": "{index} de {total}",
+    "prev": "Foto anterior",
+    "next": "Foto siguiente",
+    "close": "Cerrar",
+    "takenAt": "Subida a las {time}",
+    "visible": "Visible en el álbum",
+    "hiddenNote": "Oculta: los invitados no la ven",
+    "download": "Descargar",
+    "delete": "Eliminar",
+    "open": "Ver la foto de {name}",
+    "more": "Más de {name}",
+    "moreCount": "{count, plural, one {# foto más} other {# fotos más}}",
+    "onlyOne": "Es la única foto de {name}.",
+    "openOther": "Ver otra foto de {name}"
   }
 }

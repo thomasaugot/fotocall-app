@@ -53,5 +53,25 @@
     "confirmYes": "Eliminar foto",
     "confirmNo": "Cancelar"
   },
-  "date": "16 de mayo de 2027"
+  "date": "16 de mayo de 2027",
+  "review": {
+    "label": "Revisa antes de añadir",
+    "alt": "Foto {index} de {total}, antes de añadirla",
+    "position": "{index} de {total}",
+    "remove": "Quitar esta foto",
+    "retake": "Repetir",
+    "cancel": "Cancelar",
+    "keep": "{count, plural, one {Añadir al álbum} other {Añadir # fotos}}",
+    "progress": "Añadiendo {current} de {total}…",
+    "failed": "{count, plural, one {No se ha podido añadir. Comprueba la conexión e inténtalo otra vez.} other {# fotos no se han podido añadir. Inténtalo otra vez.}}",
+    "title": "{count, plural, one {¿La añadimos al álbum?} other {¿Las añadimos al álbum?}}",
+    "hint": "Si no te convence, repítela."
+  },
+  "celebrate": {
+    "title": "{count, plural, one {Ya está en el álbum} other {# fotos en el álbum}}",
+    "body": "{count, plural, one {Todos los invitados ya pueden verla en la galería.} other {Todos los invitados ya pueden verlas en la galería.}}",
+    "alt": "Tu foto, ya en el álbum",
+    "again": "Hacer otra",
+    "gallery": "Ver la galería"
+  }
 }

@@ -6,6 +6,7 @@ export const QR_MIN_CONTRAST = 4.5
 
 export const QR_PNG_FILE = "fotocall-qr.png"
 export const QR_SVG_FILE = "fotocall-qr.svg"
+export const QR_CARD_FILE = "fotocall-qr-tarjeta.png"
 export const ZIP_FILE = "fotocall-fotos.zip"
 
 // Photos fetched at once when zipping: enough to be quick, few enough not to starve a phone.

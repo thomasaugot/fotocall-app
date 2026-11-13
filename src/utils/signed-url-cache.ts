@@ -1,7 +1,7 @@
 import { SIGNED_URL_REUSE_MS } from "@/constants/gallery"
 import type { Photo } from "@/types/photo"
 
-type Kept = { url: string; since: number }
+type Kept = { url: string; thumbUrl: string; since: number }
 
 const kept = new Map<string, Kept>()
 
@@ -14,9 +14,9 @@ export const keepSignedUrls = (photos: Photo[], now: number = Date.now()): Photo
   return photos.map((photo) => {
     const known = kept.get(photo.id)
     if (known && now - known.since < SIGNED_URL_REUSE_MS) {
-      return known.url === photo.url ? photo : { ...photo, url: known.url }
+      return known.url === photo.url && known.thumbUrl === photo.thumbUrl ? photo : { ...photo, url: known.url, thumbUrl: known.thumbUrl }
     }
-    kept.set(photo.id, { url: photo.url, since: now })
+    kept.set(photo.id, { url: photo.url, thumbUrl: photo.thumbUrl, since: now })
     return photo
   })
 }

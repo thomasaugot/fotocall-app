@@ -5,7 +5,7 @@ import { fetchPhotoBlob, fetchPhotoFiles, zipFiles } from "@/services/photo-file
 afterEach(() => vi.unstubAllGlobals())
 
 const photo = (n: number) => ({
-  id: String(n), ownerId: "o", guestName: "Ana", url: `https://x.test/${n}`, storagePath: `o/${n}.webp`, width: 1, height: 1, createdAt: "2026-11-12T10:00:00Z",
+  id: String(n), ownerId: "o", guestName: "Ana", url: `https://x.test/${n}`, storagePath: `o/${n}.webp`, width: 1, height: 1, createdAt: "2026-11-12T10:00:00Z", hidden: false, thumbUrl: "t", thumbPath: null,
 })
 
 describe("fetchPhotoBlob", () => {

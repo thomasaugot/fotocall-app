@@ -23,7 +23,7 @@ export const GalleryPhoto = ({ photo, onOpen, onIntent }: GalleryPhotoProps) => 
       className="group relative block w-full bg-surface-2 shadow-sm transition-transform duration-200 ease-out active:scale-[0.985]"
     >
       <img
-        src={photo.url}
+        src={photo.thumbUrl}
         alt={t("alt", { name: photo.guestName })}
         width={photo.width}
         height={photo.height}

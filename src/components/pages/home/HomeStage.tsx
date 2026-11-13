@@ -3,7 +3,9 @@ import { useLocation } from "react-router"
 import { useLocale, useTranslations } from "use-intl"
 import { HomeCamera } from "@/components/pages/home/HomeCamera"
 import { HomeCameraIdle } from "@/components/pages/home/HomeCameraIdle"
+import { HomeCelebration } from "@/components/pages/home/HomeCelebration"
 import { HomeNameForm } from "@/components/pages/home/HomeNameForm"
+import { HomeReview } from "@/components/pages/home/HomeReview"
 import { HomeSignature } from "@/components/pages/home/HomeSignature"
 import { StageFrame } from "@/components/ui/StageFrame"
 import { Gloria } from "@/components/ui/Gloria"
@@ -89,9 +91,11 @@ export const HomeStage = ({ photocall, name, needsName, onSave, onEdit }: Props)
                 uploading={uploading}
                 onOpen={openCamera}
                 onRetry={photocall.retryCamera}
-                onFiles={(files) => void photocall.uploadFiles(files)}
+                onFiles={photocall.reviewFiles}
               />
             )}
+            {photocall.review && !needsName && <HomeReview photocall={photocall} />}
+            <HomeCelebration photocall={photocall} />
             {needsName && (
               <HomeNameForm
                 initialName={name}

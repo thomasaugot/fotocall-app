@@ -56,3 +56,9 @@ dialog::backdrop { background: color-mix(in srgb, var(--color-text) 55%, transpa
 @utility bg-cielo {
   background: linear-gradient(to bottom, var(--color-surface-2) 0%, var(--color-surface) 70%);
 }
+
+/* Panels that scroll inside the page (admin QR column, viewer side panel): no visible bar. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}

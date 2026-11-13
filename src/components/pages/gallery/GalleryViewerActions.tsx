@@ -34,7 +34,7 @@ export const GalleryViewerActions = ({ photo, canDelete, confirming, onConfirmin
             size="lg"
             loading={remove.isPending}
             className="flex-1 bg-danger! hover:bg-danger!"
-            onClick={() => remove.mutate({ id: photo.id, storagePath: photo.storagePath }, { onSuccess: onDeleted })}
+            onClick={() => remove.mutate(photo, { onSuccess: onDeleted })}
           >
             {t("confirm.yes")}
           </Button>

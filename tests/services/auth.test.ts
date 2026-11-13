@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 
-const auth = { getSession: vi.fn(), signInAnonymously: vi.fn() }
+const auth = { getSession: vi.fn(), signInAnonymously: vi.fn(), updateUser: vi.fn() }
 vi.mock("@/lib/supabase", () => ({ supabase: { auth } }))
 
-const { ensureGuestSession } = await import("@/services/auth")
+const { ensureGuestSession, labelGuest } = await import("@/services/auth")
 
 beforeEach(() => vi.clearAllMocks())
 
@@ -34,5 +34,28 @@ describe("ensureGuestSession", () => {
     auth.getSession.mockResolvedValue({ data: { session: null }, error: null })
     auth.signInAnonymously.mockResolvedValue({ data: { user: null }, error: new Error("rate limited") })
     await expect(ensureGuestSession()).rejects.toThrow("rate limited")
+  })
+
+  it("creates ONE anonymous user when asked twice at the same moment", async () => {
+    auth.getSession.mockResolvedValue({ data: { session: null }, error: null })
+    auth.signInAnonymously.mockResolvedValue({ data: { user: { id: "u9" } }, error: null })
+    const [a, b] = await Promise.all([ensureGuestSession(), ensureGuestSession()])
+    expect([a, b]).toEqual(["u9", "u9"])
+    expect(auth.signInAnonymously).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe("labelGuest", () => {
+  const session = (name?: string) => ({ data: { session: { user: { id: "u1", user_metadata: name ? { display_name: name } : {} } } }, error: null })
+  it("writes the guest's name on their account", async () => {
+    auth.getSession.mockResolvedValue(session())
+    auth.updateUser.mockResolvedValue({ error: null })
+    await labelGuest("Abuela Carmen")
+    expect(auth.updateUser).toHaveBeenCalledWith({ data: { display_name: "Abuela Carmen" } })
+  })
+  it("does nothing when the name is already there", async () => {
+    auth.getSession.mockResolvedValue(session("Abuela Carmen"))
+    await labelGuest("Abuela Carmen")
+    expect(auth.updateUser).not.toHaveBeenCalled()
   })
 })

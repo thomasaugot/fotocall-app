@@ -5,7 +5,7 @@ import type { Photo } from "@/types/photo"
 
 const photo = (id: string, token: string): Photo => ({
   id, ownerId: "guest-1", guestName: "Ana", url: `https://x.test/${id}.webp?token=${token}`,
-  storagePath: `u/${id}.webp`, width: 3, height: 4, createdAt: "2026-05-09T12:00:00Z",
+  storagePath: `u/${id}.webp`, width: 3, height: 4, createdAt: "2026-05-09T12:00:00Z", hidden: false, thumbUrl: "t", thumbPath: null,
 })
 
 describe("keepSignedUrls", () => {

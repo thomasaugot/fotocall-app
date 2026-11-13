@@ -10,8 +10,12 @@ export const fitWithin = (width: number, height: number, max: number) => {
 }
 
 // The file name is generated, never the uploaded one (11-SECURITY → File uploads).
-export const storagePathFor = (ownerId: string, mime: string): string => {
+export const storagePathFor = (ownerId: string, mime: string, prefix = ""): string => {
   const ext = STORED_EXTENSION[mime]
   if (!ext) throw new Error(`Unsupported stored type: ${mime}`)
-  return `${ownerId}/${crypto.randomUUID()}.${ext}`
+  return `${ownerId}/${prefix}${crypto.randomUUID()}.${ext}`
 }
+
+// Both files of a photo, for removal. Older photos have no grid copy.
+export const photoFiles = (photo: { storagePath: string; thumbPath: string | null }): string[] =>
+  photo.thumbPath ? [photo.storagePath, photo.thumbPath] : [photo.storagePath]

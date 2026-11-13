@@ -25,14 +25,14 @@ export type Database = {
           Tables: {
             "photos": {
                   Row: {
-                    "created_at": string,"guest_name": string,"height": number,"id": string,"owner_id": string,"storage_path": string,"width": number
+                    "created_at": string,"guest_name": string,"height": number,"hidden": boolean,"id": string,"owner_id": string,"storage_path": string,"thumb_path": string | null,"width": number
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"guest_name": string,"height": number,"id"?: string,"owner_id"?: string,"storage_path": string,"width": number
+                    "created_at"?: string,"guest_name": string,"height": number,"hidden"?: boolean,"id"?: string,"owner_id"?: string,"storage_path": string,"thumb_path"?: string | null,"width": number
                   }
                   Update: {
-                    "created_at"?: string,"guest_name"?: string,"height"?: number,"id"?: string,"owner_id"?: string,"storage_path"?: string,"width"?: number
+                    "created_at"?: string,"guest_name"?: string,"height"?: number,"hidden"?: boolean,"id"?: string,"owner_id"?: string,"storage_path"?: string,"thumb_path"?: string | null,"width"?: number
                   }
                   Relationships: [
                     
@@ -43,7 +43,10 @@ export type Database = {
             [_ in never]: never
           }
           Functions: {
-            "photo_count_for_current_user":
+            "is_admin":
+{ Args: Record<PropertyKey, never>; Returns: boolean
+                           },
+"photo_count_for_current_user":
 { Args: Record<PropertyKey, never>; Returns: number
                            }
           }

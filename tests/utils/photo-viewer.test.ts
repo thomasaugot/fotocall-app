@@ -4,7 +4,7 @@ import type { Photo } from "@/types/photo"
 
 const photo = (id: string, extra: Partial<Photo> = {}): Photo => ({
   id, ownerId: "guest-1", guestName: "Tía Carmen", url: `https://x.test/storage/v1/object/sign/photos/u/${id}.webp?token=abc`,
-  storagePath: `u/${id}.webp`, width: 1536, height: 2048, createdAt: "2026-05-09T12:00:00Z", ...extra,
+  storagePath: `u/${id}.webp`, width: 1536, height: 2048, createdAt: "2026-05-09T12:00:00Z", hidden: false, thumbUrl: "t", thumbPath: null, ...extra,
 })
 
 const photos = [photo("c3"), photo("b2"), photo("a1")]

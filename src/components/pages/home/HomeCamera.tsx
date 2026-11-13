@@ -16,7 +16,7 @@ interface Props {
 // the keys on its lower edge, under the thumb. Shutter in the middle, the two quiet keys beside it.
 export const HomeCamera = ({ photocall, onShoot, locked }: Props) => {
   const t = useTranslations("home.camera")
-  const { videoRef, cameraReady, preview, facing, uploading } = photocall
+  const { videoRef, cameraReady, review, facing, uploading } = photocall
 
   return (
     <div role="group" aria-label={t("label")} data-ground="ink" inert={locked} className="absolute inset-0 bg-ink">
@@ -26,27 +26,15 @@ export const HomeCamera = ({ photocall, onShoot, locked }: Props) => {
         playsInline
         muted
         aria-hidden="true"
-        className={`absolute inset-0 h-full w-full object-cover ${facing === "user" ? "-scale-x-100" : ""} ${preview ? "invisible" : ""}`}
+        className={`absolute inset-0 h-full w-full object-cover ${facing === "user" ? "-scale-x-100" : ""} ${review ? "invisible" : ""}`}
       />
-      {preview && (
-        <img src={preview.url} alt={t("previewAlt")} width={3} height={4} className="absolute inset-0 h-full w-full object-cover" />
-      )}
       <div data-anim="develop-veil" aria-hidden="true" className="invisible pointer-events-none absolute inset-0 bg-surface" />
       <div data-anim="shutter-flash" aria-hidden="true" className="invisible pointer-events-none absolute inset-0 bg-surface" />
 
-      {preview ? (
-        <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 p-3">
-          <Button variant="inverse" size="lg" className="flex-1 px-4" onClick={photocall.retake} disabled={uploading}>
-            {t("retake")}
-          </Button>
-          <Button size="lg" className="flex-[1.7] px-4" loading={uploading} onClick={() => void photocall.keep()}>
-            {t("keep")}
-          </Button>
-        </div>
-      ) : (
+      {!review && (
         <div className="absolute inset-x-0 bottom-0 grid grid-cols-[1fr_auto_1fr] items-center px-4 pb-4">
           <div className="justify-self-start">
-            <HomeLibraryUpload compact disabled={uploading} onFiles={(files) => void photocall.uploadFiles(files)} />
+            <HomeLibraryUpload compact disabled={uploading} onFiles={photocall.reviewFiles} />
           </div>
           <HomeShutter label={t("shutter")} disabled={!cameraReady || uploading} onShoot={onShoot} />
           <Button

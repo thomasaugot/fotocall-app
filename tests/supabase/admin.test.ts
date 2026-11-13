@@ -129,3 +129,27 @@ describe("auth config", () => {
   // sign-ins too (422 signup_disabled, verified 2026-11-12): open decision in MEMORY.md.
   it.todo("an email sign-up is refused")
 })
+
+describe("hidden photos", () => {
+  it("the admin hides a photo: guests stop seeing it, the admin still does, and can show it again", async () => {
+    const owner = await guest()
+    const other = await guest()
+    const photo = await addPhoto(owner)
+    expect((await admin.from("photos").update({ hidden: true }).eq("id", photo.id).select("id")).data).toHaveLength(1)
+    expect(await rowExists(other.c, photo.id)).toBe(false)
+    expect(await rowExists(owner.c, photo.id)).toBe(false)
+    expect(await rowExists(admin, photo.id)).toBe(true)
+    expect((await admin.from("photos").update({ hidden: false }).eq("id", photo.id).select("id")).data).toHaveLength(1)
+    expect(await rowExists(other.c, photo.id)).toBe(true)
+  })
+
+  it("a guest can neither hide nor rename a photo, not even their own", async () => {
+    const owner = await guest()
+    const photo = await addPhoto(owner)
+    const hide = await owner.c.from("photos").update({ hidden: true }).eq("id", photo.id).select("id")
+    expect(hide.data ?? []).toHaveLength(0)
+    const rename = await admin.from("photos").update({ guest_name: "TEST - renamed" }).eq("id", photo.id)
+    expect(rename.error).not.toBeNull()
+    expect(await rowExists(owner.c, photo.id)).toBe(true)
+  })
+})

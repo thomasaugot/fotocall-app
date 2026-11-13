@@ -27,7 +27,7 @@ export const HomeAlbumPeek = () => {
         {latest.toReversed().map((photo, i) => (
           <span key={photo.id} className={`block rounded-sm bg-surface p-2 pb-7 shadow-md ${PRINT[i + 3 - latest.length]}`}>
             <img
-              src={photo.url}
+              src={photo.thumbUrl}
               alt=""
               width={photo.width}
               height={photo.height}

@@ -2,6 +2,10 @@
 export const MAX_INPUT_BYTES = 40 * 1024 * 1024
 export const MAX_STORED_BYTES = 5 * 1024 * 1024
 export const MAX_DIMENSION = 2048
+// The small copy every grid shows (album, admin, peeks): ~10× lighter than the full photo, so a
+// party of guests scrolling the album stays inside the free plan's monthly download allowance.
+export const THUMB_DIMENSION = 720
+export const THUMB_QUALITY = 0.74
 export const MAX_PHOTOS_PER_GUEST = 60
 export const GUEST_NAME_MAX = 60
 export const SIGNED_URL_SECONDS = 60 * 60
