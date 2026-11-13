@@ -117,5 +117,4 @@ extras are in the stack's `00-STACK.md`.
 
 ## Every test passes BEFORE the push
 
-- Run the full suite locally (`npm run verify`) and push only when it is all green. The
-  `pre-push` git hook enforces it. CI must never be the first place a test fails.
+- Run the full suite locally (`npm run verify`) and push only when it is all green. Claude runs it before each push it makes; no git hook, so Thomas's own pushes go straight out.

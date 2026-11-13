@@ -200,9 +200,9 @@ it before turning CI on (several will be real bugs — conditional hooks, cascad
 Thomas, Nov 2026: "the tests should be ran before we push, not during the deploy." Before every
 push, `npm run verify` runs the WHOLE suite locally — lint, types, unit, database (local stack),
 every E2E spec on the three CI devices (mobile, desktop, iphone), and the PWA/offline spec against a production build in a
-throwaway folder (`vite build --outDir .verify-dist`: the one sanctioned local build). Push only
-when it is all green; a `pre-push` git hook (`.githooks/pre-push`, `git config core.hooksPath
-.githooks`) runs it and blocks a red push. CI must never be the first place a test fails.
+throwaway folder (`vite build --outDir .verify-dist`: the one sanctioned local build). Claude
+runs it before every push it makes and pushes only when it is all green. No git hook: Thomas's own
+pushes are never blocked or slowed. CI must never be the first place a test fails.
 
 Because the gate is local, CI only deploys: a push to `main` runs the deploy job and nothing
 else (no CI test jobs). A push is live in about a minute.

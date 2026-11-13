@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# Nothing reaches main (= production in ~2 min) unless the whole suite is green locally.
-exec npm run verify
