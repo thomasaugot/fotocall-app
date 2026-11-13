@@ -6,6 +6,7 @@ import { InstallBar } from "@/components/ui/InstallBar"
 import { LiveRegion } from "@/components/ui/LiveRegion"
 import { OfflineBanner } from "@/components/ui/OfflineBanner"
 import { UpdatePrompt } from "@/components/ui/UpdatePrompt"
+import { UploadQueueChip } from "@/components/ui/UploadQueueChip"
 import { Toaster } from "@/components/ui/Toaster"
 import { AppReadyProvider } from "@/contexts/AppReadyContext"
 import { ScrollProvider } from "@/contexts/ScrollContext"
@@ -24,6 +25,7 @@ export const Providers = ({ children }: { children: ReactNode }) => {
               <Toaster />
               <UpdatePrompt />
               <OfflineBanner />
+              <UploadQueueChip />
               <InstallBar />
               <LiveRegion />
             </MotionPreferenceProvider>

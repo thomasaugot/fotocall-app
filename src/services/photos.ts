@@ -2,6 +2,8 @@ import { SIGNED_URL_SECONDS } from "@/constants/upload-limits"
 import { supabase } from "@/lib/supabase"
 import type { NewPhoto, Photo } from "@/types/photo"
 import { photoFiles, storagePathFor } from "@/utils/image-file"
+import { isAlreadyStored } from "@/utils/upload-queue"
+import type { QueuedPhoto } from "@/types/upload-queue"
 
 const BUCKET = "photos"
 
@@ -57,4 +59,20 @@ export const deletePhoto = async (photo: Pick<Photo, "id" | "storagePath" | "thu
   if (error) throw error
   const removal = await supabase.storage.from(BUCKET).remove(photoFiles(photo))
   if (removal.error) throw removal.error
+}
+
+// The queue's upload: same row id and same paths on every attempt, so an attempt that got halfway
+// before the connection dropped is completed, never duplicated ("already there" counts as done).
+export const uploadQueuedPhoto = async (item: QueuedPhoto & { ownerId: string; path: string; thumbPath: string }): Promise<void> => {
+  const files = await Promise.all([
+    supabase.storage.from(BUCKET).upload(item.path, item.full.blob, { contentType: item.full.mime, upsert: false }),
+    supabase.storage.from(BUCKET).upload(item.thumbPath, item.thumb.blob, { contentType: item.thumb.mime, upsert: false }),
+  ])
+  for (const file of files) if (file.error && !isAlreadyStored(file.error)) throw file.error
+
+  const insert = await supabase.from("photos").insert({
+    id: item.id, guest_name: item.guestName, storage_path: item.path, thumb_path: item.thumbPath,
+    width: item.full.width, height: item.full.height,
+  })
+  if (insert.error && !isAlreadyStored(insert.error)) throw insert.error
 }

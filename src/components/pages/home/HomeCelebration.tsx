@@ -59,8 +59,8 @@ export const HomeCelebration = ({ photocall }: Props) => {
           </figure>
         </div>
         <div className="flex flex-col items-center gap-2 text-center">
-          <h2 id="celebrate-title" data-anim="celebrate-words" className="invisible text-hero"><em>{t("title", { count: celebration.count })}</em></h2>
-          <p data-anim="celebrate-words" className="invisible text-body max-w-[28ch]">{t("body", { count: celebration.count })}</p>
+          <h2 id="celebrate-title" data-anim="celebrate-words" className="invisible text-hero"><em>{celebration.queued ? t("queuedTitle", { count: celebration.count }) : t("title", { count: celebration.count })}</em></h2>
+          <p data-anim="celebrate-words" className="invisible text-body max-w-[28ch]">{celebration.queued ? t("queuedBody") : t("body", { count: celebration.count })}</p>
         </div>
         <div data-anim="celebrate-words" className="invisible flex w-full max-w-sm flex-col gap-3">
           <Button size="lg" className="w-full" icon={<IconCamera className="h-5 w-5" />} onClick={photocall.endCelebration} autoFocus>

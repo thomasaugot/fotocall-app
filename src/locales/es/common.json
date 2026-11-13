@@ -49,7 +49,7 @@
   "pwa": {
     "updateAvailable": "Nueva versión disponible",
     "update": "Actualizar",
-    "offline": "Sin conexión. Las fotos se verán al volver la red.",
+    "offline": "Sin conexión. Puedes seguir haciendo fotos: se subirán solas al volver la red.",
     "install": "Instalar",
     "iosHint": "Añádela a tu pantalla de inicio en tres toques.",
     "installTitle": "Instala Mi fotocall",
@@ -61,5 +61,12 @@
     "step2": "Baja y elige «Añadir a pantalla de inicio».",
     "step3": "Pulsa «Añadir». Ya tienes Mi fotocall como una app.",
     "understood": "Entendido"
+  },
+  "queue": {
+    "waiting": "{count, plural, one {# foto esperando conexión} other {# fotos esperando conexión}}",
+    "sending": "{count, plural, one {Subiendo # foto…} other {Subiendo # fotos…}}",
+    "stuck": "{count, plural, one {# foto no se ha podido subir} other {# fotos no se han podido subir}}",
+    "retry": "Reintentar",
+    "discard": "Descartar"
   }
 }

@@ -1,5 +1,6 @@
+import { execSync } from "node:child_process"
 import { createClient, type SupabaseClient } from "@supabase/supabase-js"
-import { beforeAll, describe, expect, it } from "vitest"
+import { afterAll, beforeAll, describe, expect, it } from "vitest"
 import type { Database } from "@/types/database"
 
 const url = process.env.VITE_SUPABASE_URL ?? ""
@@ -40,6 +41,20 @@ beforeAll(async () => {
     .select("id").single()
   expect(insert.error).toBeNull()
   aPhotoId = insert.data?.id ?? ""
+})
+
+
+// Leave the local album as it was: these rows and files exist only for this run.
+afterAll(async () => {
+  const env = execSync("npx supabase status -o env", { encoding: "utf8" })
+  const service = /^SERVICE_ROLE_KEY="?([^"\n]+)"?$/m.exec(env)?.[1]
+  if (!service) return
+  const admin = createClient<Database>(url, service, { auth: { persistSession: false, autoRefreshToken: false } })
+  const { data } = await admin.from("photos").select("id, storage_path, thumb_path").eq("guest_name", stamp)
+  const rows = data ?? []
+  const files = rows.flatMap((r) => [r.storage_path, r.thumb_path].filter((f): f is string => !!f))
+  if (files.length) await admin.storage.from("photos").remove(files)
+  if (rows.length) await admin.from("photos").delete().in("id", rows.map((r) => r.id))
 })
 
 describe("anonymous visitor (no session)", () => {

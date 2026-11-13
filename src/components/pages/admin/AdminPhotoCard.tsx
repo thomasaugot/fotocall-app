@@ -47,29 +47,29 @@ export const AdminPhotoCard = ({ photo, selected, busy, onToggle, onDownload, on
           </span>
         )}
       </div>
-      <div className="flex flex-col gap-1 px-1">
-        <p className="text-signature break-words">{photo.guestName}</p>
-        <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between gap-2 px-1">
+        <p className="flex min-w-0 flex-col">
+          <span className="text-body truncate" title={photo.guestName}>{photo.guestName}</span>
           <time dateTime={photo.createdAt} className="text-body-sm">
             {format.dateTime(new Date(photo.createdAt), { hour: "2-digit", minute: "2-digit" })}
           </time>
-          <div className="-mr-2 flex shrink-0 items-center">
-            <Button
-              variant="bare"
-              size="md"
-              disabled={busy}
-              aria-label={`${photo.hidden ? t("hide.show") : t("hide.hide")} · ${photo.guestName}`}
-              icon={photo.hidden ? <IconEye className="h-5 w-5 text-text" /> : <IconEyeOff className="h-5 w-5 text-text" />}
-              onClick={() => onSetHidden(photo, !photo.hidden)}
-            />
-            <Button
-              variant="bare"
-              size="md"
-              aria-label={t("photos.download", { name: photo.guestName })}
-              icon={<IconDownload className="h-5 w-5 text-text" />}
-              onClick={() => onDownload(photo)}
-            />
-          </div>
+        </p>
+        <div className="-mr-2 flex shrink-0 items-center">
+          <Button
+            variant="bare"
+            size="md"
+            disabled={busy}
+            aria-label={`${photo.hidden ? t("hide.show") : t("hide.hide")} · ${photo.guestName}`}
+            icon={photo.hidden ? <IconEye className="h-5 w-5 text-text-muted" /> : <IconEyeOff className="h-5 w-5 text-text-muted" />}
+            onClick={() => onSetHidden(photo, !photo.hidden)}
+          />
+          <Button
+            variant="bare"
+            size="md"
+            aria-label={t("photos.download", { name: photo.guestName })}
+            icon={<IconDownload className="h-5 w-5 text-text-muted" />}
+            onClick={() => onDownload(photo)}
+          />
         </div>
       </div>
     </li>

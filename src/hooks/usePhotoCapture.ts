@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react"
 import { useTranslations } from "use-intl"
 import { useCameraStream } from "@/hooks/useCameraStream"
-import { useUploadPhoto } from "@/hooks/useUploadPhoto"
+import { runUploadQueue } from "@/hooks/useUploadQueue"
+import { enqueuePhoto, stillQueued } from "@/services/upload-queue"
+import { isAcceptedImage } from "@/utils/image-file"
+import { preparePhoto } from "@/utils/image-resize"
+import { normalizeGuestName } from "@/utils/guest-name"
 import { showToast } from "@/stores/toast-store"
 import type { CameraFacing } from "@/types/camera"
 import { captureFrame } from "@/utils/camera-capture"
@@ -14,6 +18,9 @@ interface Preview { file: File; url: string }
 // and adds the rest. Also counts how many photos this guest added during this visit.
 type Source = "camera" | "library"
 
+// How long the review waits for the photos to reach the album before calling them "saved".
+const WAIT_FOR_UPLOAD_MS = 8_000
+
 export const usePhotoCapture = (guestName: string) => {
   const t = useTranslations("home.camera")
   const [cameraOn, setCameraOn] = useState(false)
@@ -21,10 +28,9 @@ export const usePhotoCapture = (guestName: string) => {
   const [review, setReview] = useState<{ items: Preview[]; source: Source } | null>(null)
   const [progress, setProgress] = useState<{ current: number; total: number } | null>(null)
   const [added, setAdded] = useState(0)
-  const [celebration, setCelebration] = useState<{ count: number; url: string } | null>(null)
+  const [celebration, setCelebration] = useState<{ count: number; url: string; queued: number } | null>(null)
   const [failures, setFailures] = useState(0)
   const camera = useCameraStream(facing, cameraOn)
-  const upload = useUploadPhoto()
   const urls = useRef(new Set<string>())
 
   useEffect(() => () => {
@@ -73,35 +79,43 @@ export const usePhotoCapture = (guestName: string) => {
     setReview(null)
   }
 
-  // One by one, so a failure keeps only the photos that did not make it on screen.
+  // Each photo is prepared and SAVED ON THE PHONE first (the upload queue), so nothing is lost on
+  // a bad connection; then the queue sends them. The review waits a few seconds for them: what is
+  // still on the phone after that is celebrated as "saved, will join the album on its own".
   const keepAll = async () => {
     if (!review) return
-    const failed: Preview[] = []
-    const done: Preview[] = []
     const total = review.items.length
+    const refused: Preview[] = []
+    const saved: Preview[] = []
+    const ids: string[] = []
+    const name = normalizeGuestName(guestName)
     for (const [i, item] of review.items.entries()) {
       setProgress({ current: i + 1, total })
       try {
-        await upload.mutateAsync({ file: item.file, guestName })
-        setAdded((n) => n + 1)
-        done.push(item)
+        if (!isAcceptedImage(item.file)) throw new Error("invalid image")
+        ids.push(await enqueuePhoto(await preparePhoto(item.file), name))
+        saved.push(item)
       } catch (error) {
-        logger.warn("photo kept in review after a failed upload", error)
-        failed.push(item)
+        logger.warn("photo could not be prepared", error)
+        refused.push(item)
       }
     }
+    if (ids.length) {
+      await Promise.race([runUploadQueue(), new Promise((resolve) => setTimeout(resolve, WAIT_FOR_UPLOAD_MS))])
+    }
+    const queued = ids.length ? (await stillQueued(ids)).length : 0
     setProgress(null)
-    // The last photo that made it stays alive for the celebration; the others are released.
-    const hero = done.at(-1)
-    release(done.slice(0, -1))
-    if (failed.length) {
+    setAdded((n) => n + saved.length)
+    const hero = saved.at(-1)
+    release(saved.slice(0, -1))
+    if (refused.length) {
       setFailures((n) => n + 1)
-      setReview({ ...review, items: failed })
+      setReview({ ...review, items: refused })
       if (hero) release([hero])
       return
     }
     setReview(null)
-    if (hero) setCelebration({ count: done.length, url: hero.url })
+    if (hero) setCelebration({ count: saved.length, url: hero.url, queued })
   }
 
   const endCelebration = () => {
@@ -128,7 +142,7 @@ export const usePhotoCapture = (guestName: string) => {
     endCelebration,
     failures,
     progress,
-    uploading: upload.isPending || progress !== null,
+    uploading: progress !== null,
     added,
   }
 }

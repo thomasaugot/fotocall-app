@@ -140,6 +140,17 @@ Values live in `src/styles/theme.css` — never copy hex or sizes here, they dri
 - 2026-11-12 — Look (after 5 rejections, see design-log): warm-white paper, midnight navy, fine gold
   ornaments; logo = chalice + Host; camera in an arched window; generous spacing; light only.
 
+- 2026-11-13 — Uploads go through an on-phone queue (IndexedDB, `services/upload-queue.ts`, model:
+  DosxDos convention app): photo prepared + saved first, then sent; retries on reconnect, foreground,
+  every 15 s and next app open, growing pauses. Same row id and paths on every attempt = no duplicates.
+  Refusals the server makes for good (RLS, 413…) are "stuck" with Reintentar / Descartar in a chip.
+- 2026-11-13 — Every photo has a 720 px grid copy (`thumb_path`); grids use it, viewer/download the
+  full one — keeps a party inside the free plan's ~5 GB/month download allowance.
+- 2026-11-13 — The admin can hide photos (`hidden`, RLS: guests never receive them).
+- Cloud TODO: migrations 20261113100000_hidden_photos + 20261113110000_photo_thumbnails must run on
+  Cloud BEFORE pushing the code that reads those columns (my Cloud SQL writes are permission-blocked:
+  Thomas pastes them in the SQL editor). GitHub secret SUPABASE_SERVICE_ROLE_KEY for the backup job.
+
 ## Deviations from spec
 - No visible "Reducir animaciones" toggle (05 layer 2): removed at Thomas's request 2026-11-12.
   The system `prefers-reduced-motion` setting is still honoured everywhere.
