@@ -15,6 +15,9 @@ step "pwa (production build in a throwaway folder)"
 OUT=.verify-dist PORT=4175
 rm -rf "$OUT"
 npx vite build --mode test --outDir "$OUT" --emptyOutDir >/dev/null
+if grep -rEnl "sb_secret_[A-Za-z0-9_-]{10,}|sbp_[0-9a-f]{20,}|eyJ[A-Za-z0-9_-]*c2VydmljZV9yb2xl" "$OUT"; then
+  echo "✗ a secret reached the bundle"; exit 1
+fi
 node node_modules/vite/bin/vite.js preview --mode test --outDir "$OUT" --port "$PORT" --strictPort >/dev/null 2>&1 &
 PREVIEW=$!
 trap 'kill $PREVIEW 2>/dev/null; rm -rf "$OUT"' EXIT

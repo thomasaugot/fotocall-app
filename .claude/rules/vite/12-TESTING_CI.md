@@ -204,8 +204,8 @@ throwaway folder (`vite build --outDir .verify-dist`: the one sanctioned local b
 when it is all green; a `pre-push` git hook (`.githooks/pre-push`, `git config core.hooksPath
 .githooks`) runs it and blocks a red push. CI must never be the first place a test fails.
 
-The deploy itself still waits only for the fast `checks` (~2 min) so a green push is live fast;
-E2E and Lighthouse repeat in CI alongside as a second net.
+Because the gate is local, CI only deploys: a push to `main` runs the deploy job and nothing
+else (no CI test jobs). A push is live in about a minute.
 
 ```yaml
 # ci.yml — last job

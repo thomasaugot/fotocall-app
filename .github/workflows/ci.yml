@@ -1,107 +1,17 @@
 name: CI
 
+# Every test runs LOCALLY before the push (`npm run verify`, enforced by .githooks/pre-push), so a
+# push to main only deploys. Thomas, Nov 2026: tests before the push, never during the deploy.
 on:
   push:
-  pull_request:
+    branches: [main]
 
 # Never cancel a run on main: it may be mid-deploy.
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+  cancel-in-progress: false
 
 jobs:
-  # The FAST checks (~2 min). The only job the deploy waits for.
-  checks:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version-file: .nvmrc, cache: npm }
-      - run: npm ci
-      - run: npm run lint
-      - run: npx tsc -b
-      - run: npm test
-      - run: node scripts/check-unit-tests.mjs
-      - run: npx vite build --mode test
-      - run: npm run size
-      - name: No source map published
-        run: |
-          if find dist -name "*.map" | grep -q .; then echo "::error::.map files in dist/"; exit 1; fi
-      - name: Sentry SDK only behind import()
-        run: |
-          if grep -rn "@sentry/react" src | grep -v "^src/lib/sentry.ts:.*import(\"@sentry/react\")"; then
-            echo "::error::@sentry/react must only be imported dynamically in src/lib/sentry.ts"; exit 1
-          fi
-      - name: Secret scan of the bundle
-        run: |
-          # Real secret VALUES only: the word "service_role" also appears inside supabase-js itself.
-          # c2VydmljZV9yb2xl = base64 "service_role", i.e. a service-role JWT payload.
-          if grep -rEnl "sb_secret_[A-Za-z0-9_-]{10,}|sbp_[0-9a-f]{20,}|eyJ[A-Za-z0-9_-]*c2VydmljZV9yb2xl" dist; then
-            echo "::error::A secret reached dist/"; exit 1
-          fi
-
-  # Database access rules on a LOCAL Supabase, reset from the migrations. Reports, never deploys.
-  backend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version-file: .nvmrc, cache: npm }
-      - run: npm ci
-      - run: npx supabase start
-      - run: npx supabase db reset
-      - run: npm run test:db
-
-  # Reports alongside the deploy, never holds it. A red run is fixed in the next push.
-  e2e:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version-file: .nvmrc, cache: npm }
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium webkit
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with: { name: playwright-report, path: playwright-report, retention-days: 14 }
-
-  # The service worker only exists in a production build: built + previewed here. Reports only.
-  pwa:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version-file: .nvmrc, cache: npm }
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npx vite build --mode test
-      - run: npx vite preview --mode test --port 4174 --strictPort &
-      - run: npx wait-on http://localhost:4174/ --timeout 60000
-      - run: npx playwright test e2e/pwa.spec.ts --project=desktop
-        env: { PWA_URL: "http://localhost:4174" }
-
-  lighthouse:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version-file: .nvmrc, cache: npm }
-      - run: npm ci
-      - run: npx vite build --mode test
-      - run: >
-          npx @lhci/cli@0.15 autorun
-          --collect.startServerCommand="npx vite preview --port 4173 --strictPort"
-          --collect.url=http://localhost:4173/
-          --collect.url=http://localhost:4173/galeria
-          --upload.target=filesystem --upload.outputDir=lhci-report
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with: { name: lighthouse-report, path: lhci-report, retention-days: 14 }
-
   deploy:
-    needs: checks
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
