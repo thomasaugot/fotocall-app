@@ -209,7 +209,7 @@ Values live in `src/styles/theme.css` — never copy hex or sizes here, they dri
   dashboard has its own spec `e2e/admin.spec.ts` with a stored admin session.
 
 ## Known issues / TODO
-- PLACEHOLDERS on the home page: `home.json` → `occasion` ("Primera Comunión de Lucas") and `date` ("16 de mayo de 2027"). Replace with the real child's name and date from Thomas.
+- PLACEHOLDERS on the home page: `home.json` → `occasion` ("Primera Comunión de Lucas") (still a placeholder: "Primera Comunión de Lucas"). Date set: 22 de mayo de 2027 (Thomas, 2026-11-13).
 - Cloud: push the admin migration, set auth config (email provider on, signup off if decided),
   create the admin with `npm run admin:create -- --allow-cloud`, set VITE_ADMIN_EMAIL in Vercel:
   needs Thomas's OK (nothing done on Cloud).
